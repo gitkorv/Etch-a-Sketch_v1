@@ -14,6 +14,8 @@ html body {
 body {
     line-height: 1.5;
     font-family: Arial, sans-serif;
+    background-color: rgb(64, 136, 178);
+
 }
 
 img, picture, video, canvas {
@@ -37,9 +39,11 @@ ul, ol {
 section {
     display: flex;
     justify-content: center;
-    background-color: rgb(100, 48, 48);
+    /* background-color: rgb(100, 48, 48); */
     height: 100%;
     width: 100%;
+    /* background-color: rgb(64, 136, 178); */
+
 }
 
 main {
@@ -52,14 +56,24 @@ main {
     gap: 20px;
     align-items: center;
     justify-content: center;
-    background-color: rgb(150, 64, 178);
+    background-color: rgb(64, 136, 178);
     padding: 50px 20px;
     /* padding-left: 10vw; */
     z-index: -200;
 }
 
+h1 {
+    font-size: 2rem;
+    line-height: 1em;
+}
+
+h2 {
+    /* line-height: 1em; */
+}
+
 h1, h2 {
     text-align: center;
+    color: wheat;
 }
 
 .grid-wrapper {
@@ -82,7 +96,7 @@ h1, h2 {
 .grid__background {
     position: absolute;
     display: grid;
-    grid-template-rows: repeat(2, 1fr);
+    grid-template-rows: repeat(3, 1fr);
     grid-template-columns: repeat(3, 1fr);
     background-color: teal;
     height: 100%;
@@ -129,15 +143,15 @@ button:active {
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: rgba(255, 166, 0, 0.233);
+    /* background-color: rgba(255, 166, 0, 0.233); */
 }
 
-.odin svg {
-    border: 3px solid rgba(255, 255, 255, 0.5);
+.odin img {
+    border: 3px solid hsl(215, 40%, 72%);
     border-radius: 20px;
     padding: 10px;
-    height: 50%;
-    width: 50%;
+    height: 60%;
+    width: 60%;
 }
 
 body > svg {

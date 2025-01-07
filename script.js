@@ -3,15 +3,34 @@ let hoveredColor = document.querySelector(".hovered-color");
 let gridBackground = document.querySelector('.grid__background')
 let odinSvg = document.querySelector('svg');
 
-for (let i = 0; i < 6; i++) {
+for (let i = 0; i < 9; i++) {
     let odinDiv = document.createElement('div');
     odinDiv.classList.add("odin")
-    let odinSvgOuterHtml = odinSvg.outerHTML;
-    // console.log(odinSvgOuterHtml);
-    odinDiv.innerHTML = odinSvgOuterHtml;
+    let odinImg = document.createElement("img");
+    let facePickNUmber = Math.floor(Math.random() * 6 + 1) ;
+    console.log(facePickNUmber);
+    odinImg.src = `imgs/SVG/face${facePickNUmber}.svg`
+    odinDiv.appendChild(odinImg)
     gridBackground.appendChild(odinDiv)
-    
 }
+
+
+
+
+
+
+
+
+
+// for (let i = 0; i < 6; i++) {
+//     let odinDiv = document.createElement('div');
+//     odinDiv.classList.add("odin")
+//     let odinSvgOuterHtml = odinSvg.outerHTML;
+//     // console.log(odinSvgOuterHtml);
+//     odinDiv.innerHTML = odinSvgOuterHtml;
+//     gridBackground.appendChild(odinDiv)
+    
+// }
 
 console.log(odinSvg.classList);
 
@@ -23,7 +42,7 @@ function createDiv(pixelsWide) {
     let div = document.createElement("div");
     div.style.flex = `0 0 calc(100% / ${pixelsWide})`
     div.classList.add("grid__div");
-    let color = `hsl(${Math.floor(Math.random() * 360 + 1)}, 65%, 75%)`;
+    let color = `hsl(${Math.floor(Math.random() * 20 + 200)}, 40%, 70%)`;
     // color = `pink`;
     // console.log(color);
     div.style.backgroundColor = color;
