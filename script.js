@@ -1,5 +1,20 @@
 let gridContainer = document.querySelector(".grid-container")
-let hoveredColor = document.querySelector(".hovered-color")
+let hoveredColor = document.querySelector(".hovered-color");
+let gridBackground = document.querySelector('.grid__background')
+let odinSvg = document.querySelector('svg');
+
+for (let i = 0; i < 6; i++) {
+    let odinDiv = document.createElement('div');
+    odinDiv.classList.add("odin")
+    let odinSvgOuterHtml = odinSvg.outerHTML;
+    // console.log(odinSvgOuterHtml);
+    odinDiv.innerHTML = odinSvgOuterHtml;
+    gridBackground.appendChild(odinDiv)
+    
+}
+
+console.log(odinSvg.classList);
+
 
 let activeDivIndex;
 let isDragging = false;
@@ -9,13 +24,13 @@ function createDiv(pixelsWide) {
     div.style.flex = `0 0 calc(100% / ${pixelsWide})`
     div.classList.add("grid__div");
     let color = `hsl(${Math.floor(Math.random() * 360 + 1)}, 65%, 75%)`;
-    color = `pink`;
+    // color = `pink`;
     // console.log(color);
     div.style.backgroundColor = color;
     return div
 }
 
-let pixelsWide = 16;
+let pixelsWide = 32;
 let square = pixelsWide * pixelsWide;
 
 function createPixelSquare(pixelsWide, square) {
@@ -113,7 +128,7 @@ const throttledMove = throttle((target, pixelsWide) => {
     let targetDiv = target;
 
     if (isDragging && allDivs.indexOf(targetDiv) !== activeDivIndex) {
-        console.log(allDivs.indexOf(targetDiv), activeDivIndex);
+        // console.log(allDivs.indexOf(targetDiv), activeDivIndex);
         activeDivIndex = allDivs.indexOf(targetDiv);
         // console.log(activeDivIndex);
 
