@@ -1,30 +1,58 @@
 let gridContainer = document.querySelector(".grid-container")
 let hoveredColor = document.querySelector(".hovered-color")
 
-function createDiv() {
+let activeDivIndex;
+let isDragging = false;
+
+function createDiv(pixelsWide) {
     let div = document.createElement("div");
+    div.style.flex = `0 0 calc(100% / ${pixelsWide})`
     div.classList.add("grid__div");
     let color = `hsl(${Math.floor(Math.random() * 360 + 1)}, 65%, 75%)`;
-    // color = `pink`;
+    color = `pink`;
     // console.log(color);
     div.style.backgroundColor = color;
     return div
 }
 
-let squareSideNumber = 16;
-let square = squareSideNumber * squareSideNumber;
+let pixelsWide = 16;
+let square = pixelsWide * pixelsWide;
 
-for (let i = 0; i < square; i++) {
-    let div = createDiv();
-    div.classList.add("div-" + (i + 1));
-    gridContainer.appendChild(div)
+function createPixelSquare(pixelsWide, square) {
+    for (let i = 0; i < square; i++) {
+        let div = createDiv(pixelsWide);
+        div.classList.add("div-" + (i + 1));
+        gridContainer.appendChild(div)
+    }
+
 }
+
+createPixelSquare(pixelsWide, square)
 
 let allDivs = Array.from(document.querySelectorAll(".grid__div"));
 
-function addHoverOnDiv(event) {
+
+const pixelButton = document.querySelector('button');
+
+console.log(pixelButton);
+
+pixelButton.addEventListener('click', () => {
+    pixelsWide = Number(prompt("How many pixels?"));
+    square = pixelsWide * pixelsWide;
+    gridContainer.replaceChildren()
+    createPixelSquare(pixelsWide, square)
+    allDivs = Array.from(document.querySelectorAll(".grid__div"));
+    createHoverEffect(pixelsWide, allDivs)
+
+})
+
+
+
+
+function addHoverOnDiv(event, pixelsWide) {
     let hoveredDiv = event.srcElement
     let divIndex = allDivs.indexOf(hoveredDiv);
+    square = pixelsWide * pixelsWide;
 
     let centerErase = 0.4;
     let surroundingErase = 0.2;
@@ -35,18 +63,20 @@ function addHoverOnDiv(event) {
 
     let surroundingDivs = []
 
-    if (divIndex - squareSideNumber >= 0) surroundingDivs.push(allDivs[divIndex - squareSideNumber])
-    if (divIndex + squareSideNumber <= 255) surroundingDivs.push(allDivs[divIndex + squareSideNumber])
+    if (divIndex - pixelsWide >= 0) surroundingDivs.push(allDivs[divIndex - pixelsWide])
+    if (divIndex + pixelsWide < square) surroundingDivs.push(allDivs[divIndex + pixelsWide])
+        console.log(surroundingDivs);
 
 
-    if (divIndex % 16 === 0) {
+    if (divIndex % pixelsWide === 0) {
         surroundingDivs.push(allDivs[divIndex + 1]);
-    } else if ((divIndex + 1) % 16 === 0) {
+    } else if ((divIndex + 1) % pixelsWide === 0) {
         surroundingDivs.push(allDivs[divIndex - 1]);
     } else {
         surroundingDivs.push(allDivs[divIndex + 1]);
         surroundingDivs.push(allDivs[divIndex - 1]);
     }
+    console.log(surroundingDivs);
 
     surroundingDivs.forEach(div => {
         let edgeOpacity = Number(getComputedStyle(div).opacity);
@@ -54,11 +84,6 @@ function addHoverOnDiv(event) {
         div.style.opacity = newEdgeOpacity > 0 ? newEdgeOpacity : 0;
     })
 
-}
-
-function removeHoverOnDiv(event) {
-    let hoveredDiv = event.srcElement
-    hoveredDiv.style.opacity = newOpacity;
 }
 
 function throttle(func, limit) {
@@ -83,7 +108,7 @@ function throttle(func, limit) {
 }
 
 // Throttle usage
-const throttledMove = throttle((e) => {
+const throttledMove = throttle((e, pixelsWide) => {
     // console.log(activeDivIndex);
     const targetDiv = e.target;
 
@@ -91,28 +116,30 @@ const throttledMove = throttle((e) => {
         activeDivIndex = allDivs.indexOf(targetDiv);
         // console.log(activeDivIndex);
 
-        addHoverOnDiv(e);
+        addHoverOnDiv(e, pixelsWide);
     }}, 100); // Fires at most once every 200ms
 
 
-let activeDivIndex;
-let isDragging = false;
-
-allDivs.forEach(div => {
+function createHoverEffect(pixelsWide, allDivs) {
+    allDivs.forEach(div => {
     div.addEventListener('mousedown', (e) => {
         activeDivIndex = allDivs.indexOf(e.target);
         isDragging = true;
-        addHoverOnDiv(e)
+        addHoverOnDiv(e, pixelsWide)
     });
     div.addEventListener('mouseup', () => (isDragging = false));
-    div.addEventListener('mousemove', throttledMove)
+    div.addEventListener('mousemove', (e) => throttledMove(e, pixelsWide));
 
     div.addEventListener('touchstart', (e) => {
         activeDivIndex = allDivs.indexOf(e.target);
         isDragging = true;
-        addHoverOnDiv(e);
+        addHoverOnDiv(e, pixelsWide);
     });
     div.addEventListener('touchend', () => (isDragging = false));
-    div.addEventListener('touchmove', throttledMove);
+    div.addEventListener('touchmove', (e) => throttledMove(e, pixelsWide));
 
 })
+}
+
+createHoverEffect(pixelsWide, allDivs)
+
