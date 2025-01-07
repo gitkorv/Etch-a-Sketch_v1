@@ -14,9 +14,18 @@ for (let i = 0; i < 9; i++) {
     gridBackground.appendChild(odinDiv)
 }
 
+let miniHeadsContainer = document.querySelector(".miniheads")
 
+for (let i = 0; i < 3; i++) {
+    let miniHeadDiv = document.createElement("div");
+    miniHeadDiv.classList.add("minihead__div");
+    let miniheadImg = document.createElement("img");
+    miniheadImg.src = 'imgs/SVG/face1.svg';
+    miniHeadDiv.appendChild(miniheadImg);
+    miniHeadsContainer.appendChild(miniHeadDiv);
 
-
+    
+}
 
 
 
