@@ -72,11 +72,30 @@ main {
     align-items: center;
     justify-content: start;
     background-color: rgb(64, 136, 178);
-    padding: 20px 20px 0px 20px;
+    padding: 30px 20px 0px 20px;
     border: 6px dotted rgb(225, 181, 114);
     border-radius: 12px;
     /* padding-left: 10vw; */
     z-index: -200;
+}
+
+.burst {
+    position: absolute;
+    right: 20px;
+    top: 120px;
+    height: 75px;
+    width: 75px;
+    /* background-color: yellow; */
+}
+
+.burst svg {
+    /* background-color: blue; */
+    fill: wheat;
+    rotate: 360deg;
+    /* text-shadow: 2px 2px black; */
+    /* filter: drop-shadow(5px 5px rgba(0, 0, 0, 0.5)); */
+    /* text-shadow: ; */
+    transition: rotate 20s linear;
 }
 
 .main__top1 {
@@ -105,7 +124,7 @@ h1 {
     display: flex;
     gap: 16px;
     /* align-items: end; */
-    justify-content: space-between;
+    justify-content: start;
 }
 
 .top2__left1, .top2__right1 {
@@ -121,39 +140,67 @@ h1 {
     line-height: 24px;
     background-color: rgb(53, 115, 150);
     border-radius: 20px;
-    flex: 1;
-    padding: 0 8px;
-    /* height: 98%; */
+    flex: .75;
+    padding: 0 16px;
+    min-width: 100px
 }
 
 .top2__right1 {
     align-items: start;
     justify-content: start;
-    flex: 2;
 }
-
-/* .top2__left1 h2:last-child {
-    line-height: 10px;
-} */
 
 h2 {
     color: wheat;
     font-family: "baucher-gothic-urw-extended", sans-serif;
     font-weight: 700;
     font-style: normal;
-    font-size: 1.2rem;
-
-    /* max-width: 500px; */
-
+    font-size: 1rem;
     line-height: 1.25rem;
 }
 
-.h2-big1 {
+/* .top2__right1 h2 {
     font-size: 1.5rem;
+} */
+
+.h2-big1 {
+    font-size: 1.25rem;
     color: white;
 }
+
 .h2-big1:last-of-type {
     line-height: 1.75rem;
+}
+
+.million {
+    text-shadow: 2px 2px rgb(186, 67, 24);
+    animation: millionAnim 3s ease-in-out infinite alternate;
+}
+
+@keyframes millionAnim {
+    25% {
+        rotate: 0deg;
+        /* scale: 100%; */
+    }
+    35% {
+        rotate: -5deg;
+        scale: 100%;
+    }
+    50% {
+        /* color: rgb(246, 184, 69); */
+        scale: 130%;
+    }
+    65% {
+        rotate: 5deg;
+        scale: 100%;
+    }
+    75% {
+        rotate: 0deg;
+        /* scale: 100%; */
+    }
+    100% {
+        rotate: 0deg;
+    }
 }
 
 .miniheads-container {
@@ -191,10 +238,20 @@ h2 {
     height: 100%;
 }
 
+.winning-head {
+    color: black;
+    font-size: 1.2rem;
+}
+
+.win-odds-text, .odds {
+    font-size: .75rem;
+    letter-spacing: .05rem;
+    margin-left: 4px;
+}
+
 .winning-keys-container {
     display: flex;
     flex-direction: column;
-    gap: 4px;
     width: 100%;
     height: 100%;
 
@@ -208,21 +265,16 @@ h2 {
 .key-row {
     display: flex;
     align-items: end;
-    justify-content: start;
+    /* justify-content: start; */
     height: 24px;
     /* background-color: orange; */
 }
 
 .keys {
     display: flex;
-    /* gap: 8px; */
-    /* flex-direction: column; */
     width: 46px;
-    /* height: 20px; */
-    /* align-items: start; */
+    height: 18px;
     /* background-color: aqua; */
-    /* display: flex; */
-    /* line-height: 16px; */
 }
 
 .key-head {
@@ -230,14 +282,16 @@ h2 {
     height: 100%;
     font-size: 1rem;
     color: white;
+    /* overflow-x: hidden; */
+    /* word-wrap: none; */
+    /* line-break: ; */
     /* line-height: 16px; */
     /* height: 16px; */
     /* background-color: antiquewhite; */
 }
 
 .odds {
-    font-size: .75rem;
-    font-weight: 400;
+    display: none;
 }
 
 .key-div {
@@ -295,10 +349,28 @@ h2 {
 }
 
 .scratch-here__arrow {
+    position: relative;
     height: 50px;
     width: 50px;
-    padding: 4px 8px 0 12px;
+    padding: 4px 0 0 4px;
+    /* padding-top: 4px; */
+    /* rotate: 15deg; */
+    left: 0;
+    z-index: 100;
+    margin-right: -4px;
+    transform-origin: top;
+    pointer-events: none;
     /* background-color: black; */
+    animation: bounce-hands ease-in 1s infinite alternate;
+}
+
+@keyframes bounce-hands {
+    to {
+        left: 12px;
+        /* rotate: -15deg; */
+        /* scale: 120%; */
+        /* background-color: blue; */
+    }
 }
 
 .grid-wrapper {
@@ -338,7 +410,7 @@ h2 {
     /* background-color: rgb(72, 128, 160); */
     align-items: center;
     justify-items: center;
-    border: 2px dotted  rgb(84, 146, 182);
+    border: 2px dotted rgb(84, 146, 182);
     z-index: -10;
     /* height: 100%; */
     /* padding: 12px; */
@@ -402,4 +474,61 @@ body>svg {
     font-weight: 400;
     font-style: normal;
     font-size: .75rem;
+}
+
+@media (max-width: 350px) {
+    .key-head {
+        font-size: .75rem;
+    }
+}
+
+@media (min-width: 385px) {
+    h2 {
+        font-size: 1.2rem;
+    }
+
+    .h2-big1 {
+        font-size: 1.5rem;
+    }
+
+    .odds {
+        display: inline;
+    }
+
+    .top2__left1 {
+        padding: 0 8px;
+    }
+
+    .winning-keys-container {
+        gap: 4px;
+    }
+
+    .key-head {
+        padding-left: 4px;
+    }
+
+    /* .minihead__div {
+        margin-right: 8px;
+    } */
+
+}
+
+@media (min-width: 450px) {
+
+    .top2__left1 h2 {
+        line-height: 1.5rem;
+    }
+
+    .key-head {
+        letter-spacing: .1rem;
+        font-size: 1.1rem;
+    }
+
+    h1 {
+        font-size: 2.5rem;
+    }
+
+    .keys {
+        width: 60px;
+    }
 }

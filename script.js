@@ -248,3 +248,30 @@ function createHoverEffect(pixelsWide, allDivs) {
 
 createHoverEffect(pixelsWide, allDivs)
 
+let winningHeadlineContainer = document.querySelector(".winning-head");
+let orgWinningHeadlineContent = winningHeadlineContainer.innerHTML;
+console.log(winningHeadlineContainer);
+
+let winningHeadOddsSpan = document.createElement('span');
+winningHeadOddsSpan.classList.add("win-odds-text")
+winningHeadOddsSpan.innerHTML = " (and odds)";
+
+let longerWinningHeadContainer = winningHeadlineContainer.appendChild(winningHeadOddsSpan);
+console.log(longerWinningHeadContainer);
+
+let windowWidth = window.innerWidth;
+
+function adjustElementsToWindowWidth() {
+    windowWidth = window.innerWidth;
+    if (windowWidth > 385) {
+        winningHeadlineContainer.insertAdjacentElement('beforeend',winningHeadOddsSpan);
+    } else {
+        winningHeadlineContainer.innerHTML = orgWinningHeadlineContent;
+    }
+}
+
+window.addEventListener('resize', () => {
+    adjustElementsToWindowWidth()
+})
+
+adjustElementsToWindowWidth()
