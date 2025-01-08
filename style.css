@@ -239,11 +239,12 @@ h2 {
 }
 
 .winning-head {
-    color: black;
+    /* color: black; */
     font-size: 1.2rem;
 }
 
 .win-odds-text, .odds {
+    color: white;
     font-size: .75rem;
     letter-spacing: .05rem;
     margin-left: 4px;
@@ -291,6 +292,7 @@ h2 {
 }
 
 .odds {
+    color: wheat;
     display: none;
 }
 
