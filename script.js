@@ -14,20 +14,45 @@ for (let i = 0; i < 9; i++) {
     gridBackground.appendChild(odinDiv)
 }
 
-let miniHeadsContainer = document.querySelector(".miniheads")
+let miniHeadsContainer = document.querySelector(".miniheads-container");
+console.log(miniHeadsContainer);
 
 for (let i = 0; i < 3; i++) {
     let miniHeadDiv = document.createElement("div");
     miniHeadDiv.classList.add("minihead__div");
     let miniheadImg = document.createElement("img");
-    miniheadImg.src = 'imgs/SVG/face1.svg';
+    miniheadImg.src = `imgs/SVG/face1.svg`;
     miniHeadDiv.appendChild(miniheadImg);
-    miniHeadsContainer.appendChild(miniHeadDiv);
-
-    
+    miniHeadsContainer.appendChild(miniHeadDiv);    
 }
 
+let keyNumbers = [1,2,3,4,5,6]
 
+let keysContainerArray = document.querySelectorAll(".keys");
+console.log(keysContainerArray);
+
+keysContainerArray.forEach((key, i) => {
+    let index = i+1;
+    let keyImgContainer = key;
+    
+    for (let i = 0; i < 3; i++) {
+        let miniHeadDiv = document.createElement("div");
+        miniHeadDiv.classList.add("minihead__div");
+        let miniheadImg = document.createElement("img");
+        miniheadImg.src = `imgs/SVG/face${index}.svg`;
+        miniHeadDiv.appendChild(miniheadImg);
+        keyImgContainer.appendChild(miniHeadDiv);    
+    }
+})
+
+// for (let i = 0; i < 3; i++) {
+//     let keyDiv = document.createElement("span");
+//     keyDiv.classList.add("key-div");
+//     let keyImg = document.createElement("img");
+//     keyImg.src = 'imgs/SVG/face1.svg';
+//     keyDiv.appendChild(keyImg);
+//     odinKeysContainer.appendChild(keyDiv);    
+// }
 
 
 
