@@ -19,7 +19,7 @@ console.log(miniHeadsContainer);
 
 for (let i = 0; i < 3; i++) {
     let miniHeadDiv = document.createElement("div");
-    miniHeadDiv.classList.add("minihead__div");
+    miniHeadDiv.classList.add("minihead__div3");
     let miniheadImg = document.createElement("img");
     miniheadImg.src = `imgs/SVG/face1.svg`;
     miniHeadDiv.appendChild(miniheadImg);
@@ -76,7 +76,7 @@ function createDiv(pixelsWide) {
     let div = document.createElement("div");
     div.style.flex = `0 0 calc(100% / ${pixelsWide})`
     div.classList.add("grid__div");
-    let color = `hsl(${Math.floor(Math.random() * 20 + 200)}, 40%, 70%)`;
+    let color = `hsl(${Math.floor(Math.random() * 10 + 200)}, 50%, 60%)`;
     // color = `pink`;
     // console.log(color);
     div.style.backgroundColor = color;
@@ -214,7 +214,7 @@ function createHoverEffect(pixelsWide, allDivs) {
         });
 
         div.addEventListener('touchmove', (e) => {
-            // e.preventDefault(); // Prevent scrolling
+            e.preventDefault(); // Prevent scrolling
             isDragging = true;
             const touch = e.touches[0];
             const target = document.elementFromPoint(touch.clientX, touch.clientY);
