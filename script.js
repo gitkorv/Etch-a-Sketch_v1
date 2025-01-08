@@ -66,7 +66,7 @@ keysContainerArray.forEach((key, i) => {
     
 // }
 
-console.log(odinSvg.classList);
+// console.log(odinSvg.classList);
 
 
 let activeDivIndex;

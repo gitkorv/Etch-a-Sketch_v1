@@ -20,6 +20,9 @@ body {
     width: 100vw;
     /* overflow: hidden; */
     overflow: scroll;
+    font-family: "baucher-gothic-urw-extended", sans-serif;
+    font-weight: 700;
+    font-style: normal;
 
 }
 
@@ -153,13 +156,6 @@ h2 {
     line-height: 1.75rem;
 }
 
-
-
-.grid-wrapper, .miniheads {
-    width: min(100%, 50vh);
-
-}
-
 .miniheads-container {
     position: relative;
     display: flex;
@@ -256,25 +252,72 @@ h2 {
     background-color: blue;
 }
 
-.grid-wrapper {
+.grid-area {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: end;
+    align-items: end;
+    margin-top: 16px;
+    margin-bottom: 16px;
+    /* flex-direction: column; */
+    /* background-color: orange; */
+    z-index: -100;
+    border-top: 1px solid white;
+    padding-top: 8px;
+    /* padding-left: 20px; */
+}
+
+.scratch-here {
     position: relative;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    align-content: space-between;
-    align-items: end;
+    /* align-items: start; */
+    /* word-wrap: none; */
+    /* justify-content: end; */
+    /* width: 75px; */
     height: 100%;
-    margin-top: 16px;
-    margin-bottom: 16px;
+    /* background-color: aquamarine; */
+}
+
+.scratch-here__text {
+    color: wheat;
+    position: relative;
+    /* flex-wrap: nowrap; */
+    /* height: 100%; */
+    /* width: 200px; */
+    writing-mode: vertical-lr;
+    /* rotate: -90deg; */
+    /* background-color: orange; */
+    font-size: 2.2rem;
+    line-height: 1.5rem;
+}
+
+.scratch-here__arrow {
+    height: 50px;
+    width: 50px;
+    padding: 4px 8px 0 12px;
+    /* background-color: black; */
+}
+
+.grid-wrapper {
+    position: relative;
+    display: block;
+    /* flex-direction: column; */
+    width: 100%;
+
+    height: 100%;
+
     /* background-color: aqua; */
     /* overflow: scroll; */
-    z-index: -200;
+    /* z-index: -200; */
 }
 
 .grid-container, .grid__background {
     aspect-ratio: 1 / 1;
     /* flex: 1; */
-    width: 90%;
+    width: 100%;
     max-height: 100%;
     max-width: 100%;
     /* border-radius: 16px; */
@@ -284,13 +327,11 @@ h2 {
 .grid-container {
     display: flex;
     flex-wrap: wrap;
-    margin-bottom: 8px;
-    /* scale: 96%; */
-    /* background-color: hsl(104, 17%, 35%); */
 }
 
 .grid__background {
     position: absolute;
+    top: 0;
     display: grid;
     grid-template-rows: repeat(3, 1fr);
     grid-template-columns: repeat(3, 1fr);
@@ -355,9 +396,10 @@ body>svg {
 }
 
 .sign-off {
+    color: white;
     /* height: 50px; */
     font-family: "elza-text", sans-serif;
-font-weight: 400;
-font-style: normal;
+    font-weight: 400;
+    font-style: normal;
     font-size: .75rem;
 }
