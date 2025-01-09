@@ -28,45 +28,52 @@ for (let i = 0; i < 3; i++) {
 
 let keyNumbers = [1,2,3,4,5,6]
 
-let keysContainerArray = document.querySelectorAll(".keys");
+let keysContainerArray = Array.from(document.querySelectorAll(".keys"));
 console.log(keysContainerArray);
 
-keysContainerArray.forEach((key, i) => {
-    let index = i+1;
-    let keyImgContainer = key;
+// keysContainerArray.forEach((key, i) => {
+//     let index = i+1;
+//     let keyImgContainer = key;
     
-    for (let i = 0; i < 3; i++) {
-        let miniHeadDiv = document.createElement("div");
-        miniHeadDiv.classList.add("minihead__div");
-        let miniheadImg = document.createElement("img");
-        miniheadImg.src = `imgs/SVG/face${index}.svg`;
-        miniHeadDiv.appendChild(miniheadImg);
-        keyImgContainer.appendChild(miniHeadDiv);    
-    }
+//     for (let i = 0; i < 3; i++) {
+//         let miniHeadDiv = document.createElement("div");
+//         miniHeadDiv.classList.add("minihead__div");
+//         let miniheadImg = document.createElement("img");
+//         miniheadImg.src = `imgs/SVG/face${index}.svg`;
+//         miniHeadDiv.appendChild(miniheadImg);
+//         keyImgContainer.appendChild(miniHeadDiv);    
+//     }
+// })
+
+keysContainerArray.forEach((key, i) => {
+    let imgIndex = i + 1;
+    console.log(imgIndex);
+    let threeImgs = Array.from(key.children)
+    
+    threeImgs.forEach(container => {
+        let parentClassName = container.parentElement.classList;
+        console.log(parentClassName);
+        let element = container.outerHTML;
+        let testSvg = document.createElement('img')
+        testSvg.src = `imgs/SVG/face${imgIndex}.svg`;
+        container.appendChild(testSvg)
+    })
 })
 
-// for (let i = 0; i < 3; i++) {
-//     let keyDiv = document.createElement("span");
-//     keyDiv.classList.add("key-div");
-//     let keyImg = document.createElement("img");
-//     keyImg.src = 'imgs/SVG/face1.svg';
-//     keyDiv.appendChild(keyImg);
-//     odinKeysContainer.appendChild(keyDiv);    
-// }
+
+let test = Array.from(keysContainerArray[0].children);
+console.log(test);
 
 
 
-// for (let i = 0; i < 6; i++) {
-//     let odinDiv = document.createElement('div');
-//     odinDiv.classList.add("odin")
-//     let odinSvgOuterHtml = odinSvg.outerHTML;
-//     // console.log(odinSvgOuterHtml);
-//     odinDiv.innerHTML = odinSvgOuterHtml;
-//     gridBackground.appendChild(odinDiv)
-    
-// }
+// test.forEach(container => {
+//     let element = container.outerHTML;
+//     console.log(element);
+//     let testSvg = document.createElement('img')
+//     testSvg.src = "imgs/SVG/face1.svg";
+//     container.appendChild(testSvg)
+// })
 
-// console.log(odinSvg.classList);
 
 
 let activeDivIndex;

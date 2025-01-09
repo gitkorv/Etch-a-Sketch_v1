@@ -268,14 +268,28 @@ h2 {
     align-items: end;
     /* justify-content: start; */
     height: 24px;
-    /* background-color: orange; */
+    /* backgroundx-color: orange; */
 }
 
 .keys {
     display: flex;
-    width: 46px;
-    height: 18px;
+    gap: 2px;
+    width: 50px;
+    height: 75%;
     /* background-color: aqua; */
+}
+
+.mask-key.keys {
+    height: 65%;
+    /* background-color: blue; */
+}
+
+.keys__img-cont {
+    display: flex;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    /* background-color: black; */
 }
 
 .key-head {
@@ -283,12 +297,6 @@ h2 {
     height: 100%;
     font-size: 1rem;
     color: white;
-    /* overflow-x: hidden; */
-    /* word-wrap: none; */
-    /* line-break: ; */
-    /* line-height: 16px; */
-    /* height: 16px; */
-    /* background-color: antiquewhite; */
 }
 
 .odds {
@@ -296,7 +304,7 @@ h2 {
     display: none;
 }
 
-.key-div {
+/* .key-div {
     height: 16px;
     width: auto;
     margin-right: 4px;
@@ -306,7 +314,7 @@ h2 {
 .key-div img {
     height: 16px;
     background-color: blue;
-}
+} */
 
 .grid-area {
     position: relative;
@@ -507,6 +515,20 @@ body>svg {
 @media (max-width: 350px) {
     .key-head {
         font-size: .75rem;
+    }
+    .keys {
+        display: flex;
+        gap: 2px;
+        width: 45px;
+        height: 60%;
+        /* background-color: aqua; */
+        margin-bottom: 2px;
+
+    }
+    
+    .mask-key.keys {
+        height: 55%;
+        /* background-color: blue; */
     }
 }
 
