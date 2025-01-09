@@ -304,18 +304,6 @@ h2 {
     display: none;
 }
 
-/* .key-div {
-    height: 16px;
-    width: auto;
-    margin-right: 4px;
-    background-color: blue;
-}
-
-.key-div img {
-    height: 16px;
-    background-color: blue;
-} */
-
 .grid-area {
     position: relative;
     width: 100%;
@@ -325,8 +313,7 @@ h2 {
     align-items: end;
     margin-top: 16px;
     margin-bottom: 16px;
-    /* flex-direction: column; */
-    /* background-color: orange; */
+
     z-index: -100;
     border-top: 1px solid white;
     padding-top: 8px;
@@ -337,89 +324,52 @@ h2 {
     position: relative;
     display: flex;
     flex-direction: column;
-    /* align-items: start; */
-    /* word-wrap: none; */
-    /* justify-content: end; */
-    /* width: 75px; */
     height: 100%;
+    width: 40px;
     /* background-color: aquamarine; */
 }
 
 .scratch-here__text {
     color: wheat;
     position: relative;
-    margin-right: 16px;
-    /* flex-wrap: nowrap; */
-    /* height: 100%; */
-    /* width: 200px; */
+    /* margin-right: 16px; */
     writing-mode: vertical-lr;
-    /* rotate: -90deg; */
-    /* background-color: orange; */
     font-size: 2.2rem;
     line-height: 1.5rem;
 }
 
-.scratch-here__arrow {
-    position: absolute;
-    top: 135px;
+.scratch-here__arrow-wrapper {
     display: flex;
-    /* flex-direction: column; */
-    justify-content: start;
-    align-items: start;
-    /* align-items: center; */
-    /* justify-content: start; */
-    /* height: 50px; */
-    width: auto;
-    /* padding: 4px 0 0 4px; */
-    /* padding-top: 4px; */
-    /* rotate: 15deg; */
-    left: 0;
+    height: 30px;
+    width: fit-content;
     z-index: 100;
-    margin: 0 8px;
-    transform-origin: top;
-    pointer-events: none;
-    /* background-color: orange; */
-    /* animation: bounce-hands ease-in 1s infinite alternate; */
-}
-
-@keyframes bounce-hands {
-    to {
-        left: 12px;
-        /* rotate: -15deg; */
-        /* scale: 120%; */
-        /* background-color: blue; */
-    }
-}
-
-.scratch-line-svg-wrapper {
-    /* position: absolute; */
-    display: block;
-    width: 20px;
-    height: 20px;
+    padding-left: 8px;
+    padding-top: 4px;
     /* background-color: aqua; */
 }
 
-
-.scratch-hand-wrapper {
-    display: block;
-    position: absolute;
-    left: 20px;
-    width: 30px;
-    height: 20px;
-    margin-top: 2PX;
+.scratch-line {
+    height: calc(50% + 1px);
+    width: 20px;
+    /* background-color: pink; */
+    border-left: 1px solid white;
+    border-bottom: 1px solid white;
 }
+
+.scratch-hand {
+    place-content: center;
+    height: 100%;
+    width: 40px;
+    /* background-color: blue; */
+}
+
+
 
 .grid-wrapper {
     position: relative;
     display: block;
-    /* flex-direction: column; */
     width: 100%;
-
     height: 100%;
-
-    /* background-color: aqua; */
-    /* overflow: scroll; */
-    /* z-index: -200; */
 }
 
 .grid-container, .grid__background {

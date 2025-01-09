@@ -8,7 +8,6 @@ for (let i = 0; i < 9; i++) {
     odinDiv.classList.add("odin")
     let odinImg = document.createElement("img");
     let facePickNUmber = Math.floor(Math.random() * 6 + 1) ;
-    console.log(facePickNUmber);
     odinImg.src = `imgs/SVG/face${facePickNUmber}.svg`
     odinDiv.appendChild(odinImg)
     gridBackground.appendChild(odinDiv)
@@ -26,55 +25,21 @@ for (let i = 0; i < 3; i++) {
     miniHeadsContainer.appendChild(miniHeadDiv);    
 }
 
-let keyNumbers = [1,2,3,4,5,6]
-
 let keysContainerArray = Array.from(document.querySelectorAll(".keys"));
 console.log(keysContainerArray);
 
-// keysContainerArray.forEach((key, i) => {
-//     let index = i+1;
-//     let keyImgContainer = key;
-    
-//     for (let i = 0; i < 3; i++) {
-//         let miniHeadDiv = document.createElement("div");
-//         miniHeadDiv.classList.add("minihead__div");
-//         let miniheadImg = document.createElement("img");
-//         miniheadImg.src = `imgs/SVG/face${index}.svg`;
-//         miniHeadDiv.appendChild(miniheadImg);
-//         keyImgContainer.appendChild(miniHeadDiv);    
-//     }
-// })
-
 keysContainerArray.forEach((key, i) => {
     let imgIndex = i + 1;
-    console.log(imgIndex);
     let threeImgs = Array.from(key.children)
     
     threeImgs.forEach(container => {
         let parentClassName = container.parentElement.classList;
-        console.log(parentClassName);
         let element = container.outerHTML;
         let testSvg = document.createElement('img')
         testSvg.src = `imgs/SVG/face${imgIndex}.svg`;
         container.appendChild(testSvg)
     })
 })
-
-
-let test = Array.from(keysContainerArray[0].children);
-console.log(test);
-
-
-
-// test.forEach(container => {
-//     let element = container.outerHTML;
-//     console.log(element);
-//     let testSvg = document.createElement('img')
-//     testSvg.src = "imgs/SVG/face1.svg";
-//     container.appendChild(testSvg)
-// })
-
-
 
 let activeDivIndex;
 let isDragging = false;
@@ -99,7 +64,6 @@ function createPixelSquare(pixelsWide, square) {
         div.classList.add("div-" + (i + 1));
         gridContainer.appendChild(div)
     }
-
 }
 
 createPixelSquare(pixelsWide, square)
@@ -140,8 +104,6 @@ function addHoverOnDiv(target, pixelsWide) {
 
     if (divIndex - pixelsWide >= 0) surroundingDivs.push(allDivs[divIndex - pixelsWide])
     if (divIndex + pixelsWide < square) surroundingDivs.push(allDivs[divIndex + pixelsWide])
-    // console.log(surroundingDivs);
-
 
     if (divIndex % pixelsWide === 0) {
         surroundingDivs.push(allDivs[divIndex + 1]);
@@ -283,20 +245,26 @@ window.addEventListener('resize', () => {
 
 adjustElementsToWindowWidth()
 
-let scratchLine = document.getElementById('scratch-line');
-let scratchHandWrapper = document.querySelector(".scratch-hand-wrapper")
-console.log(scratchHandWrapper);
-let scratchX = 10; 
+let scratchLine = document.querySelector('.scratch-line');
+console.log(scratchLine);
+// let scratchHandWrapper = document.querySelector(".scratch-hand-wrapper")
+// console.log(scratchHandWrapper);
+let scratchLineWidth = 20; 
 let direction = -1;
 
-let scratchInterval = setInterval(() => {
-    scratchX += direction;
+// scratchLine.style.width = "40px"
 
-    if (scratchX <= 5 || scratchX >= 20) {
+let scratchInterval = setInterval(() => {
+    scratchLineWidth += direction;
+
+    if (scratchLineWidth <= 5 || scratchLineWidth >= 20) {
         direction *= -1;
     }
-    scratchLine.setAttribute('points', `0.5 0 0.5 10 ${scratchX} 10`)
-    scratchHandWrapper.style.left = scratchX + "px"
+    scratchLine.style.width =`${scratchLineWidth}px`;
+    // scratchHandWrapper.style.left = scratchLineWidth + "px"
 }, 70)
 
 // clearInterval(scratchInterval)
+
+let millionText = document.querySelector(".million");
+console.log(millionText);
