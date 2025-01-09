@@ -267,4 +267,4 @@ let scratchInterval = setInterval(() => {
 // clearInterval(scratchInterval)
 
 let millionText = document.querySelector(".million");
-console.log(millionText);
+// console.log(millionText);
