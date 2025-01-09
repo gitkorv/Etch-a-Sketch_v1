@@ -275,3 +275,21 @@ window.addEventListener('resize', () => {
 })
 
 adjustElementsToWindowWidth()
+
+let scratchLine = document.getElementById('scratch-line');
+let scratchHandWrapper = document.querySelector(".scratch-hand-wrapper")
+console.log(scratchHandWrapper);
+let scratchX = 10; 
+let direction = -1;
+
+let scratchInterval = setInterval(() => {
+    scratchX += direction;
+
+    if (scratchX <= 5 || scratchX >= 20) {
+        direction *= -1;
+    }
+    scratchLine.setAttribute('points', `0.5 0 0.5 10 ${scratchX} 10`)
+    scratchHandWrapper.style.left = scratchX + "px"
+}, 70)
+
+// clearInterval(scratchInterval)

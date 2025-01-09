@@ -340,6 +340,7 @@ h2 {
 .scratch-here__text {
     color: wheat;
     position: relative;
+    margin-right: 16px;
     /* flex-wrap: nowrap; */
     /* height: 100%; */
     /* width: 200px; */
@@ -351,19 +352,26 @@ h2 {
 }
 
 .scratch-here__arrow {
-    position: relative;
-    height: 50px;
-    width: 50px;
-    padding: 4px 0 0 4px;
+    position: absolute;
+    top: 135px;
+    display: flex;
+    /* flex-direction: column; */
+    justify-content: start;
+    align-items: start;
+    /* align-items: center; */
+    /* justify-content: start; */
+    /* height: 50px; */
+    width: auto;
+    /* padding: 4px 0 0 4px; */
     /* padding-top: 4px; */
     /* rotate: 15deg; */
     left: 0;
     z-index: 100;
-    margin-right: -4px;
+    margin: 0 8px;
     transform-origin: top;
     pointer-events: none;
-    /* background-color: black; */
-    animation: bounce-hands ease-in 1s infinite alternate;
+    /* background-color: orange; */
+    /* animation: bounce-hands ease-in 1s infinite alternate; */
 }
 
 @keyframes bounce-hands {
@@ -373,6 +381,24 @@ h2 {
         /* scale: 120%; */
         /* background-color: blue; */
     }
+}
+
+.scratch-line-svg-wrapper {
+    /* position: absolute; */
+    display: block;
+    width: 20px;
+    height: 20px;
+    /* background-color: aqua; */
+}
+
+
+.scratch-hand-wrapper {
+    display: block;
+    position: absolute;
+    left: 20px;
+    width: 30px;
+    height: 20px;
+    margin-top: 2PX;
 }
 
 .grid-wrapper {
