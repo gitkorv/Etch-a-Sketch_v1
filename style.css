@@ -281,7 +281,7 @@ h2 {
 
 .mask-key.keys {
     height: 65%;
-    /* background-color: blue; */
+    background-color: blue;
 }
 
 .keys__img-cont {
