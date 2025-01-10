@@ -2,66 +2,81 @@ let gridContainer = document.querySelector(".grid-container")
 let hoveredColor = document.querySelector(".hovered-color");
 let gridBackground = document.querySelector('.grid__background')
 let odinSvg = document.querySelector('svg');
+let whoWon;
 
-let faceCounts = {
-    odin: 0,
-    santa: 0,
-    mustache: 0,
-    spy: 0,
-    mask: 0,
-    egg: 0
-}
+function generateRandomNumbers() {
+    const result = [];
+    const count = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0 };
+    let maxCountReached = false;
 
-let faceCountArray = [0,0,0,0,0,0]
+    // Weight array: Higher weight = higher probability
+    const weights = [3, 4, 4.5, 5, 5.5, 6]; // Lower weight for 1
 
+    function getWeightedRandom() {
+        const cumulativeWeights = [];
+        let sum = 0;
 
-function checkFacePicsActive() {
+        weights.forEach((weight, i) => {
+            sum += weight;
+            cumulativeWeights[i] = sum;
+        });
 
-    let limit = 3;
-    let gameOver = false;
+        const random = Math.random() * sum;
 
-    for (let i = 0; i < 1; i++) {
-        let facePickNumber = Math.floor(Math.random() * 6);
-
-
-        if (faceCountArray[facePickNumber] + 1 === 3 && gameOver === false) {
-            faceCountArray[facePickNumber] = faceCountArray[facePickNumber] + 1;
-            gameOver = true;
-            console.log(facePickNumber + 1 + "won");
-            limit--;
-            return facePickNumber
-        } else if (faceCountArray[facePickNumber] + 1 === limit) {
-            console.log(facePickNumber + "is at limit");
-            i--
-        } else {
-            faceCountArray[facePickNumber] = faceCountArray[facePickNumber] + 1;
-            return facePickNumber
+        for (let i = 0; i < cumulativeWeights.length; i++) {
+            if (random < cumulativeWeights[i]) {
+                return i + 1; // Return the number (1-6)
+            }
         }
-        console.log(facePickNumber);
     }
+
+    while (result.length < 9) {
+        const randomNumber = getWeightedRandom();
+
+        if (maxCountReached) {
+            // Allow numbers only if their count is less than 2
+            if (count[randomNumber] < 2) {
+                result.push(randomNumber);
+                count[randomNumber]++;
+            }
+        } else {
+            // Allow numbers if their count is less than 3
+            if (count[randomNumber] < 3) {
+                result.push(randomNumber);
+                count[randomNumber]++;
+
+                // Check if any number has reached 3 occurrences
+                if (count[randomNumber] === 3) {
+                    whoWon = randomNumber;
+                    maxCountReached = true;
+                }
+            }
+        }
+    }
+    return result;
 }
 
-for (let i = 0; i < 9; i++) {
+
+let randomHeadNumbers = generateRandomNumbers();
+console.log(randomHeadNumbers);
+
+randomHeadNumbers.forEach(number => {
     let odinDiv = document.createElement('div');
-    odinDiv.classList.add("odin")
+    odinDiv.classList.add("odin", "face" + number)
     let odinImg = document.createElement("img");
-    facePickNumber = checkFacePicsActive()
-    console.log(faceCountArray);
 
-
-    odinImg.src = `imgs/SVG/face${facePickNumber + 1}.svg`;
+    odinImg.src = `imgs/SVG/face${number}.svg`;
     odinDiv.appendChild(odinImg)
     gridBackground.appendChild(odinDiv)
-}
+})
 
 let millionHeadsContainer = document.querySelector(".million-head-container");
 let millionHeadDivArray = Array.from(millionHeadsContainer.children)
-console.log(millionHeadDivArray);
 
 for (let i = 0; i < 3; i++) {
     let millionHeadImg = document.createElement("img");
     millionHeadImg.src = `imgs/SVG/face1.svg`;
-    millionHeadDivArray[i].appendChild(millionHeadImg);  
+    millionHeadDivArray[i].appendChild(millionHeadImg);
     // millionHeadsContainer.appendChild(millionHeadImg);    
 }
 
@@ -71,7 +86,7 @@ let keysContainerArray = Array.from(document.querySelectorAll(".keys"));
 keysContainerArray.forEach((key, i) => {
     let imgIndex = i + 1;
     let threeImgs = Array.from(key.children)
-    
+
     threeImgs.forEach(container => {
         let parentClassName = container.parentElement.classList;
         let element = container.outerHTML;
@@ -110,17 +125,58 @@ createPixelSquare(pixelsWide, square)
 let allDivs = Array.from(document.querySelectorAll(".grid__div"));
 
 
-const pixelButton = document.querySelector('button');
-
-console.log(pixelButton);
+const pixelButton = document.querySelector('.pixel-button');
 
 pixelButton.addEventListener('click', () => {
-    pixelsWide = Number(prompt("How many pixels?"));
+    let inputPixelsWide = Number(prompt("How many pixels wide?"));
+    pixelsWide = inputPixelsWide > 0 ? inputPixelsWide : pixelsWide;
+    console.log(pixelsWide);
+    // pixelsWide = inputPixelsWide;
     square = pixelsWide * pixelsWide;
     gridContainer.replaceChildren()
     createPixelSquare(pixelsWide, square)
     allDivs = Array.from(document.querySelectorAll(".grid__div"));
     createHoverEffect(pixelsWide, allDivs)
+})
+
+const resultButton = document.querySelector('.result-button');
+const resultTextContainer = document.querySelector('.show-result')
+
+console.log("winner " + whoWon);
+let gridFacesArray = [...document.querySelectorAll(".odin")];
+let faceNames = ["Odins", "Santas", "Mustaches", "Spies", "Masks", "Eggs"]
+let winnerHeadName
+
+if (whoWon === undefined) {
+    winnerHeadName = "= No win this time, try again!"
+} else {
+    winnerHeadName = `= You got 3 ${faceNames[whoWon - 1]}, congrats!!!`;
+}
+
+let winningPhrase = winnerHeadName;
+console.log(winningPhrase);
+
+// Split the string into individual letters and wrap them in spans
+winningPhrase.split("").forEach((letter) => {
+    const span = document.createElement("span");
+    span.classList.add("result-text", "result-text-hidden");
+    span.textContent = letter; // Add the letter as the span's content
+    if (letter === " ") {
+        span.style.marginRight = "0.1em"; // Optional: Add spacing for spaces
+    }
+    resultTextContainer.appendChild(span); // Append the span to the container
+});
+
+
+
+resultButton.addEventListener('click', () => {
+    // Add the class to each letter with a 0.2s interval
+    const resultLetters = [...resultTextContainer.children]; // Get all the span elements
+    resultLetters.forEach((letter, index) => {
+        setTimeout(() => {
+            letter.classList.remove("result-text-hidden");
+        }, index * 50); // 200ms interval
+    });
 })
 
 function addHoverOnDiv(target, pixelsWide) {
@@ -185,7 +241,7 @@ const throttledMove = throttle((target, pixelsWide) => {
         activeDivIndex = allDivs.indexOf(targetDiv);
         addHoverOnDiv(target, pixelsWide);
     }
-}, 100); 
+}, 100);
 
 
 function createHoverEffect(pixelsWide, allDivs) {
@@ -194,7 +250,6 @@ function createHoverEffect(pixelsWide, allDivs) {
             isDragging = true;
             let target = e.target;
             activeDivIndex = allDivs.indexOf(target);
-            console.log(target);
             addHoverOnDiv(target, pixelsWide)
         });
         div.addEventListener('mouseup', () => (isDragging = false));
@@ -225,21 +280,19 @@ createHoverEffect(pixelsWide, allDivs)
 
 let winningHeadlineContainer = document.querySelector(".winning-headline");
 let orgWinningHeadlineContent = winningHeadlineContainer.innerHTML;
-console.log(winningHeadlineContainer);
 
 let winningHeadOddsSpan = document.createElement('span');
 winningHeadOddsSpan.classList.add("win-odds-text")
 winningHeadOddsSpan.innerHTML = " (and odds)";
 
 let longerWinningHeadContainer = winningHeadlineContainer.appendChild(winningHeadOddsSpan);
-console.log(longerWinningHeadContainer);
 
 let windowWidth = window.innerWidth;
 
 function adjustElementsToWindowWidth() {
     windowWidth = window.innerWidth;
     if (windowWidth > 390) {
-        winningHeadlineContainer.insertAdjacentElement('beforeend',winningHeadOddsSpan);
+        winningHeadlineContainer.insertAdjacentElement('beforeend', winningHeadOddsSpan);
     } else {
         winningHeadlineContainer.innerHTML = orgWinningHeadlineContent;
     }
@@ -252,10 +305,7 @@ window.addEventListener('resize', () => {
 adjustElementsToWindowWidth()
 
 let scratchLine = document.querySelector('.scratch-line');
-console.log(scratchLine);
-// let scratchHandWrapper = document.querySelector(".scratch-hand-wrapper")
-// console.log(scratchHandWrapper);
-let scratchLineWidth = 20; 
+let scratchLineWidth = 20;
 let direction = -1;
 
 // scratchLine.style.width = "40px"
@@ -266,7 +316,7 @@ let scratchInterval = setInterval(() => {
     if (scratchLineWidth <= 5 || scratchLineWidth >= 20) {
         direction *= -1;
     }
-    scratchLine.style.width =`${scratchLineWidth}px`;
+    scratchLine.style.width = `${scratchLineWidth}px`;
     // scratchHandWrapper.style.left = scratchLineWidth + "px"
 }, 70)
 
@@ -276,7 +326,7 @@ let millionText = document.querySelector(".million");
 let millionTextArray = [...millionText.innerHTML];
 millionText.textContent = '';
 let millionSpans = [];
-millionTextArray.forEach(letter =>{
+millionTextArray.forEach(letter => {
     let millionLetterSpan = document.createElement('span');
     millionLetterSpan.textContent = letter;
     millionText.appendChild(millionLetterSpan)
@@ -284,9 +334,6 @@ millionTextArray.forEach(letter =>{
 })
 
 let newMillionSpans = [...millionText.children];
-console.log(newMillionSpans);
-
-
 
 function loopMillionLetters() {
     let gapTime = 50;
@@ -296,18 +343,22 @@ function loopMillionLetters() {
         }, i * gapTime);
 
     })
-    
+
 }
 
-
-
-
-// millionTextArray[0].style.color = "black";
 
 let millionTextInterval = setInterval(() => {
     loopMillionLetters()
 }, 2000)
 
-// millionTextArray.forEach(letter => {
-//     letter.style.color = "black";
-// })
+let curtain = document.querySelector('.curtain');
+console.log(curtain);
+
+document.getElementById("replay-button").addEventListener("click", () => {
+    curtain.classList.add("on")
+    setTimeout(() => {
+        location.reload(); // Reloads the current page
+
+    }, 300);
+
+});
