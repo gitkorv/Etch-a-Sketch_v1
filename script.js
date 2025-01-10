@@ -3,6 +3,7 @@ let hoveredColor = document.querySelector(".hovered-color");
 let gridBackground = document.querySelector('.grid__background')
 let odinSvg = document.querySelector('svg');
 let whoWon;
+let windowWidth = window.innerWidth;
 
 function generateRandomNumbers() {
     const result = [];
@@ -146,11 +147,23 @@ console.log("winner " + whoWon);
 let gridFacesArray = [...document.querySelectorAll(".odin")];
 let faceNames = ["Odins", "Santas", "Mustaches", "Spies", "Masks", "Eggs"]
 let winnerHeadName
+let winningResultText;
+let losingResultText;
+
+if (windowWidth <= 375) {
+    winningResultText = `= Win! 3 ${faceNames[whoWon - 1]}`;
+    losingResultText = "= Bummer, try again!"
+} else {
+    winningResultText = `= You got 3 ${faceNames[whoWon - 1]}, congrats!!!`;
+    losingResultText = "= Sorry, no match, try again!"
+
+}
 
 if (whoWon === undefined) {
-    winnerHeadName = "= No win this time, try again!"
+    winnerHeadName = losingResultText;
 } else {
-    winnerHeadName = `= You got 3 ${faceNames[whoWon - 1]}, congrats!!!`;
+    console.log(windowWidth);
+    winnerHeadName = winningResultText;
 }
 
 let winningPhrase = winnerHeadName;
@@ -287,8 +300,6 @@ winningHeadOddsSpan.innerHTML = " (and odds)";
 
 let longerWinningHeadContainer = winningHeadlineContainer.appendChild(winningHeadOddsSpan);
 
-let windowWidth = window.innerWidth;
-
 function adjustElementsToWindowWidth() {
     windowWidth = window.innerWidth;
     if (windowWidth > 390) {
@@ -362,3 +373,18 @@ document.getElementById("replay-button").addEventListener("click", () => {
     }, 300);
 
 });
+
+let burst = document.querySelector(".burst")
+let burstAnimDur = parseInt(getComputedStyle(burst).animationDuration);
+let burstText = document.querySelector(".burst-text");
+// console.log(parseInt(burstAnimDur));
+
+setInterval(() => {
+    burstText.textContent = burstText.textContent === "Big!" ? "Win!!" : "Big!";
+}, burstAnimDur * 1000);
+
+
+burst.addEventListener('animationend', (e) => {
+    console.log(e);
+})
+console.log(burst);
