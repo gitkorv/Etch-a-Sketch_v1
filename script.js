@@ -3,12 +3,53 @@ let hoveredColor = document.querySelector(".hovered-color");
 let gridBackground = document.querySelector('.grid__background')
 let odinSvg = document.querySelector('svg');
 
+let faceCounts = {
+    odin: 0,
+    santa: 0,
+    mustache: 0,
+    spy: 0,
+    mask: 0,
+    egg: 0
+}
+
+let faceCountArray = [0,0,0,0,0,0]
+
+
+function checkFacePicsActive() {
+
+    let limit = 3;
+    let gameOver = false;
+
+    for (let i = 0; i < 1; i++) {
+        let facePickNumber = Math.floor(Math.random() * 6);
+
+
+        if (faceCountArray[facePickNumber] + 1 === 3 && gameOver === false) {
+            faceCountArray[facePickNumber] = faceCountArray[facePickNumber] + 1;
+            gameOver = true;
+            console.log(facePickNumber + 1 + "won");
+            limit--;
+            return facePickNumber
+        } else if (faceCountArray[facePickNumber] + 1 === limit) {
+            console.log(facePickNumber + "is at limit");
+            i--
+        } else {
+            faceCountArray[facePickNumber] = faceCountArray[facePickNumber] + 1;
+            return facePickNumber
+        }
+        console.log(facePickNumber);
+    }
+}
+
 for (let i = 0; i < 9; i++) {
     let odinDiv = document.createElement('div');
     odinDiv.classList.add("odin")
     let odinImg = document.createElement("img");
-    let facePickNUmber = Math.floor(Math.random() * 6 + 1) ;
-    odinImg.src = `imgs/SVG/face${facePickNUmber}.svg`
+    facePickNumber = checkFacePicsActive()
+    console.log(faceCountArray);
+
+
+    odinImg.src = `imgs/SVG/face${facePickNumber + 1}.svg`;
     odinDiv.appendChild(odinImg)
     gridBackground.appendChild(odinDiv)
 }

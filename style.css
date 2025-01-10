@@ -569,6 +569,13 @@ body>svg {
         width: 60px;
     }
     .burst {
-        top: 140px;
+        position: absolute;
+        right: 20px;
+        top: 125px;
+        height: 100px;
+        width: 100px;
+    }
+    .burst-text {
+        font-size: 2.5rem;
     }
 }
