@@ -136,7 +136,7 @@ main {
     /* text-shadow: 2px 2px black; */
     /* filter: drop-shadow(5px 5px rgba(0, 0, 0, 0.5)); */
     /* text-shadow: ; */
-    animation: rotate-burst 10s linear infinite;
+    /* animation: rotate-burst 10s linear infinite; */
 }
 
 @keyframes rotate-burst {
