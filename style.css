@@ -81,13 +81,13 @@ main {
 }
 
 @keyframes border-anim {
-    80% {
+    75% {
         /* border-radius: 14px */
         border-color: rgb(225, 181, 114);
     }
     to {
         /* border-radius: 14px */
-        border-color: white;
+        border-color: pink;
     }
 }
 
@@ -113,7 +113,7 @@ main {
     justify-content: center;
     font-size: 2rem;
     transform-origin: center;
-    background-color: white;
+    background-color: pink;
     z-index: 100;
     border: 2px solid rgb(64, 136, 178);
     border-radius: 50%;
