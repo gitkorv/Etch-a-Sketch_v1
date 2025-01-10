@@ -13,20 +13,19 @@ for (let i = 0; i < 9; i++) {
     gridBackground.appendChild(odinDiv)
 }
 
-let miniHeadsContainer = document.querySelector(".miniheads-container");
-console.log(miniHeadsContainer);
+let millionHeadsContainer = document.querySelector(".million-head-container");
+let millionHeadDivArray = Array.from(millionHeadsContainer.children)
+console.log(millionHeadDivArray);
 
 for (let i = 0; i < 3; i++) {
-    let miniHeadDiv = document.createElement("div");
-    miniHeadDiv.classList.add("minihead__div3");
-    let miniheadImg = document.createElement("img");
-    miniheadImg.src = `imgs/SVG/face1.svg`;
-    miniHeadDiv.appendChild(miniheadImg);
-    miniHeadsContainer.appendChild(miniHeadDiv);    
+    let millionHeadImg = document.createElement("img");
+    millionHeadImg.src = `imgs/SVG/face1.svg`;
+    millionHeadDivArray[i].appendChild(millionHeadImg);  
+    // millionHeadsContainer.appendChild(millionHeadImg);    
 }
 
 let keysContainerArray = Array.from(document.querySelectorAll(".keys"));
-console.log(keysContainerArray);
+// console.log(keysContainerArray);
 
 keysContainerArray.forEach((key, i) => {
     let imgIndex = i + 1;
@@ -50,7 +49,6 @@ function createDiv(pixelsWide) {
     div.classList.add("grid__div");
     let color = `hsl(${Math.floor(Math.random() * 10 + 200)}, 50%, 60%)`;
     // color = `pink`;
-    // console.log(color);
     div.style.backgroundColor = color;
     return div
 }
@@ -82,11 +80,7 @@ pixelButton.addEventListener('click', () => {
     createPixelSquare(pixelsWide, square)
     allDivs = Array.from(document.querySelectorAll(".grid__div"));
     createHoverEffect(pixelsWide, allDivs)
-
 })
-
-
-
 
 function addHoverOnDiv(target, pixelsWide) {
     let targetDiv = target;
@@ -113,8 +107,6 @@ function addHoverOnDiv(target, pixelsWide) {
         surroundingDivs.push(allDivs[divIndex + 1]);
         surroundingDivs.push(allDivs[divIndex - 1]);
     }
-    // console.log(surroundingDivs);
-
     surroundingDivs.forEach(div => {
         let edgeOpacity = Number(getComputedStyle(div).opacity);
         let newEdgeOpacity = edgeOpacity - surroundingErase;
@@ -146,17 +138,13 @@ function throttle(func, limit) {
 
 // Throttle usage
 const throttledMove = throttle((target, pixelsWide) => {
-    // console.log(activeDivIndex);
     let targetDiv = target;
 
     if (isDragging && allDivs.indexOf(targetDiv) !== activeDivIndex) {
-        // console.log(allDivs.indexOf(targetDiv), activeDivIndex);
         activeDivIndex = allDivs.indexOf(targetDiv);
-        // console.log(activeDivIndex);
-
         addHoverOnDiv(target, pixelsWide);
     }
-}, 100); // Fires at most once every 200ms
+}, 100); 
 
 
 function createHoverEffect(pixelsWide, allDivs) {
@@ -171,7 +159,6 @@ function createHoverEffect(pixelsWide, allDivs) {
         div.addEventListener('mouseup', () => (isDragging = false));
         div.addEventListener('mousemove', (e) => {
             let target = e.target;
-            // console.log(target);
             throttledMove(target, pixelsWide);
         })
         div.addEventListener('touchstart', (e) => {
@@ -188,36 +175,14 @@ function createHoverEffect(pixelsWide, allDivs) {
             const touch = e.touches[0];
             const target = document.elementFromPoint(touch.clientX, touch.clientY);
             throttledMove(target, pixelsWide)
-
-            // if (lastTouchTarget !== target) {
-            //     console.log("yes");
-            //     lastTouchTarget = target;
-            //     // activeDivIndex = allDivs.indexOf(target);
-            //     throttledMove(target, pixelsWide)
-            // } else {
-            //     console.log("no");
-            //     throttledMove(lastTouchTarget, pixelsWide)
-
-            // }
-
-
-
-            // if (target && target.classList.contains('grid__div')) {
-            // target.classList.add('hover');
-            // console.log(target);
-            // }
         });
         div.addEventListener('touchend', () => (isDragging = false));
-        // div.addEventListener('touchmove', (e) => throttledMove(e, pixelsWide));
-
-
-
     })
 }
 
 createHoverEffect(pixelsWide, allDivs)
 
-let winningHeadlineContainer = document.querySelector(".winning-head");
+let winningHeadlineContainer = document.querySelector(".winning-headline");
 let orgWinningHeadlineContent = winningHeadlineContainer.innerHTML;
 console.log(winningHeadlineContainer);
 
@@ -232,7 +197,7 @@ let windowWidth = window.innerWidth;
 
 function adjustElementsToWindowWidth() {
     windowWidth = window.innerWidth;
-    if (windowWidth > 385) {
+    if (windowWidth > 390) {
         winningHeadlineContainer.insertAdjacentElement('beforeend',winningHeadOddsSpan);
     } else {
         winningHeadlineContainer.innerHTML = orgWinningHeadlineContent;
@@ -267,4 +232,41 @@ let scratchInterval = setInterval(() => {
 // clearInterval(scratchInterval)
 
 let millionText = document.querySelector(".million");
-// console.log(millionText);
+let millionTextArray = [...millionText.innerHTML];
+millionText.textContent = '';
+let millionSpans = [];
+millionTextArray.forEach(letter =>{
+    let millionLetterSpan = document.createElement('span');
+    millionLetterSpan.textContent = letter;
+    millionText.appendChild(millionLetterSpan)
+
+})
+
+let newMillionSpans = [...millionText.children];
+console.log(newMillionSpans);
+
+
+
+function loopMillionLetters() {
+    let gapTime = 50;
+    newMillionSpans.forEach((letter, i) => {
+        setTimeout(() => {
+            letter.classList.toggle("blink");
+        }, i * gapTime);
+
+    })
+    
+}
+
+
+
+
+// millionTextArray[0].style.color = "black";
+
+let millionTextInterval = setInterval(() => {
+    loopMillionLetters()
+}, 2000)
+
+// millionTextArray.forEach(letter => {
+//     letter.style.color = "black";
+// })

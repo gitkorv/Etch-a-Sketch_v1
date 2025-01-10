@@ -77,25 +77,72 @@ main {
     border-radius: 12px;
     /* padding-left: 10vw; */
     z-index: -200;
+    animation: border-anim .75s ease-out infinite alternate;
+}
+
+@keyframes border-anim {
+    80% {
+        /* border-radius: 14px */
+        border-color: rgb(225, 181, 114);
+    }
+    to {
+        /* border-radius: 14px */
+        border-color: white;
+    }
 }
 
 .burst {
     position: absolute;
     right: 20px;
-    top: 120px;
+    top: 115px;
     height: 75px;
     width: 75px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     /* background-color: yellow; */
+}
+
+.burst-text {
+    position: absolute;
+    color: rgb(64, 136, 178);
+    height: 70%;
+    width: 70%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    transform-origin: center;
+    background-color: white;
+    z-index: 100;
+    border: 2px solid rgb(64, 136, 178);
+    border-radius: 50%;
+    animation: wiggle 5s ease-in-out infinite alternate;
+}
+
+@keyframes wiggle {
+    50% {
+        rotate: -15deg;
+    }
+    100% {
+        rotate: 25deg;
+    }
 }
 
 .burst svg {
     /* background-color: blue; */
     fill: wheat;
-    rotate: 360deg;
+    rotate: 0deg;
     /* text-shadow: 2px 2px black; */
     /* filter: drop-shadow(5px 5px rgba(0, 0, 0, 0.5)); */
     /* text-shadow: ; */
-    transition: rotate 20s linear;
+    animation: rotate-burst 10s linear infinite;
+}
+
+@keyframes rotate-burst {
+    to {
+        rotate: 360deg;
+    }
 }
 
 .main__top1 {
@@ -159,10 +206,6 @@ h2 {
     line-height: 1.25rem;
 }
 
-/* .top2__right1 h2 {
-    font-size: 1.5rem;
-} */
-
 .h2-big1 {
     font-size: 1.25rem;
     color: white;
@@ -172,73 +215,64 @@ h2 {
     line-height: 1.75rem;
 }
 
+.million-head-container {
+    position: relative;
+    display: flex;
+    gap: 2px;
+    height: 36px;
+    /* background-color: rgb(37, 37, 27); */
+}
+
+.million-head {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 24px;
+    margin-bottom: 2px;
+    filter: drop-shadow(1px 2px hsla(16, 77%, 41%, 0.21));
+}
+
 .million {
-    text-shadow: 2px 2px rgb(186, 67, 24);
+    /* font-family: "manicotti", sans-serif;
+    font-weight: 400;
+    font-style: normal; */
+    text-shadow: 2px 2px hsla(16, 77%, 41%, 0.21);
     animation: millionAnim 3s ease-in-out infinite alternate;
 }
 
 @keyframes millionAnim {
     25% {
         rotate: 0deg;
-        /* scale: 100%; */
     }
     35% {
         rotate: -5deg;
-        scale: 100%;
     }
     50% {
-        /* color: rgb(246, 184, 69); */
         scale: 130%;
     }
     65% {
         rotate: 5deg;
-        scale: 100%;
     }
     75% {
         rotate: 0deg;
-        /* scale: 100%; */
     }
     100% {
         rotate: 0deg;
     }
 }
 
-.miniheads-container {
-    position: relative;
-    display: flex;
-    gap: 2px;
-    /* justify-content: start; */
-    height: 36px;
-    margin-bottom: 4px;
-    /* background-color: rgb(37, 37, 27); */
+.blink {
+    color: pink;
+    animation: blink 2s linear infinite alternate;
 }
 
-.minihead__div3 {
-    position: relative;
-    display: flex;
-    align-items: center;
-    /* background-color: aqua; */
-    width: 25px;
-    height: 100%;
-    z-index: 10;
-    /* margin-bottom: 80px; */
+@keyframes blink {
+    to {
+        color: wheat;
+    }
 }
 
-.minihead__div {
-    position: relative;
-    width: 30px;
-    height: 100%;
-    z-index: 10;
-    margin-right: 4px;
-    /* background-color: oldlace; */
-}
-
-.minihead__div img {
-    /* background-color: beige; */
-    height: 100%;
-}
-
-.winning-head {
+.winning-headline {
     /* color: black; */
     font-size: 1.2rem;
 }
@@ -281,7 +315,7 @@ h2 {
 
 .mask-key.keys {
     height: 65%;
-    background-color: blue;
+    /* background-color: blue; */
 }
 
 .keys__img-cont {
@@ -480,9 +514,13 @@ body>svg {
         height: 55%;
         /* background-color: blue; */
     }
+    .burst {
+        top: 110px;
+        right: -8px;
+    }
 }
 
-@media (min-width: 385px) {
+@media (min-width: 390px) {
     h2 {
         font-size: 1.2rem;
     }
@@ -506,9 +544,8 @@ body>svg {
     .key-head {
         padding-left: 4px;
     }
-
-    /* .minihead__div {
-        margin-right: 8px;
+    /* .burst {
+        top: 100px;
     } */
 
 }
@@ -530,5 +567,8 @@ body>svg {
 
     .keys {
         width: 60px;
+    }
+    .burst {
+        top: 140px;
     }
 }
