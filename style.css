@@ -32,7 +32,7 @@ body {
     font-family: "baucher-gothic-urw-extended", sans-serif;
     font-weight: 700;
     font-style: normal;
-
+    perspective: 1000px;
 
 }
 
@@ -116,6 +116,12 @@ main {
     }
 }
 
+.burst, .burst-text, .burst svg {
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    will-change: transform;
+}
+
 .burst {
     position: absolute;
     right: 20px;
@@ -125,7 +131,8 @@ main {
     display: flex;
     align-items: center;
     justify-content: center;
-    transform-style: preserve-3d;    
+    transform-style: preserve-3d;
+
 
     animation: flip 4s linear infinite 2s;
     /* background-color: yellow; */
@@ -386,8 +393,9 @@ h2:nth-of-type(4) {
     position: relative;
     display: flex;
     flex-direction: column;
-    /* height: 100%; */
+    height: 100%;
     width: 40px;
+    /* background-color: aqua; */
 }
 
 .scratch-here__text {
@@ -397,6 +405,7 @@ h2:nth-of-type(4) {
     writing-mode: vertical-lr;
     font-size: 2.2rem;
     line-height: 1.5rem;
+    /* background-color: black; */
 }
 
 .scratch-here__arrow-wrapper {
@@ -424,6 +433,9 @@ h2:nth-of-type(4) {
     /* background-color: blue; */
 }
 
+.scratch-empty {
+    flex: auto;
+}
 
 
 .grid-wrapper {
