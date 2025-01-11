@@ -368,7 +368,7 @@ console.log(curtain);
 document.getElementById("replay-button").addEventListener("click", () => {
     curtain.classList.add("on")
     setTimeout(() => {
-        location.reload(); // Reloads the current page
+        location.reload(true); // Reloads the current page
 
     }, 300);
 

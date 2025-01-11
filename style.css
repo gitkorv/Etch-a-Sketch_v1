@@ -393,7 +393,7 @@ h2:nth-of-type(4) {
     position: relative;
     display: flex;
     flex-direction: column;
-    height: 100%;
+    height: fit-content;
     width: 40px;
     /* background-color: aqua; */
 }
