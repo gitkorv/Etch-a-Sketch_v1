@@ -64,18 +64,21 @@ ul, ol {
 .curtain {
     position: absolute;
     height: 120dvh;
-    width: 0;
+    width: 0%;
     background-color: var(--darkBlue);
     /* background-color: pink; */
     z-index: 2000;
-    opacity: 0;
+    /* opacity: 0; */
     pointer-events: none;
+    transition: width .15s ease-out;
+
 }
 
 .curtain.on {
-    transition: width .1s ease-in;
+    /* transition: width .5s ease-out; */
+
     width: 100%;
-    opacity: 1;
+    /* opacity: 1; */
 }
 
 section {

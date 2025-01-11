@@ -13,6 +13,9 @@ let odinSvg = document.querySelector('svg');
 let whoWon;
 let windowWidth = window.innerWidth;
 
+let curtain = document.querySelector('.curtain');
+console.log(curtain);
+
 let footer = document.querySelector(".bottom-buttons")
 console.log(footer);
 
@@ -20,19 +23,37 @@ console.log(footer);
 
 // body.classList.add("hidden");
 card.style.display = "none";
+curtain.style.transition = "none"
+curtain.classList.add("on")
 // scratchHereContainer.style.display = "none";
 // gridWrapper.style.display = "none";
 // footer.style.display = "none";
 
-document.fonts.ready.then(() => {
-    // body.classList.remove("hidden");
+// window.onload = () => {
 
+// }
+
+setTimeout(() => {
+    curtain.style.transition = ""
     card.style.display = "";
-    // scratchHereContainer.style.display = "";
-    // gridWrapper.style.display = "";
-    // footer.style.display = "";
-    // window.getComputedStyle(scratchHereContainer)
-});
+
+    curtain.classList.remove("on")
+
+}, 150);
+
+// document.fonts.ready.then(() => {
+//     // body.classList.remove("hidden");
+
+    
+
+    
+
+
+//     // scratchHereContainer.style.display = "";
+//     // gridWrapper.style.display = "";
+//     // footer.style.display = "";
+//     // window.getComputedStyle(scratchHereContainer)
+// });
 
 // FLOATING ON TOP AREA
 
@@ -415,12 +436,9 @@ resultButton.addEventListener('click', () => {
     });
 })
 
-let curtain = document.querySelector('.curtain');
-console.log(curtain);
-
 document.getElementById("replay-button").addEventListener("click", () => {
     curtain.classList.add("on")
     setTimeout(() => {
         location.reload(); // Reloads the current page
-    }, 300);
+    }, 150);
 });
