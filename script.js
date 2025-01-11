@@ -115,8 +115,16 @@ keysContainerArray.forEach((key, i) => {
 
     // SCRATCH TEXT
 
-let scratchHereText = document.querySelector(".scratch-here__text")
-console.log(getComputedStyle(scratchHereText).height);
+
+
+document.fonts.ready.then(() => {
+    let scratchHereContainer = document.querySelector(".scratch-here")
+    let scratchHereText = document.querySelector(".scratch-here__text");
+    let scratchArrowWrapper = document.querySelector(".scratch-here__arrow-wrapper")
+    console.log(getComputedStyle(scratchArrowWrapper).height);
+
+    scratchHereContainer.style.display = "flex";
+});
 
 let scratchLine = document.querySelector('.scratch-line');
 let scratchLineWidth = 20;
