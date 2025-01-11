@@ -317,6 +317,7 @@ function generateRandomNumbers() {
             sum += weight;
             cumulativeWeights[i] = sum;
         });
+        console.log(sum);
 
         const random = Math.random() * sum;
 
