@@ -1,9 +1,37 @@
+const body = document.body;
+console.log(body);
+let card = document.querySelector(".card")
+console.log(card);
+let gridWrapper = document.querySelector(".grid-wrapper")
 let gridContainer = document.querySelector(".grid-container")
+let scratchHereContainer = document.querySelector(".scratch-here")
+
 let hoveredColor = document.querySelector(".hovered-color");
 let gridBackground = document.querySelector('.grid__background')
 let odinSvg = document.querySelector('svg');
 let whoWon;
 let windowWidth = window.innerWidth;
+
+let footer = document.querySelector(".bottom-buttons")
+console.log(footer);
+
+// GENERAL
+
+body.classList.add("hidden");
+// body.style.display = "none";
+// scratchHereContainer.style.display = "none";
+// gridWrapper.style.display = "none";
+// footer.style.display = "none";
+
+document.fonts.ready.then(() => {
+    body.classList.remove("hidden");
+
+    // body.style.display = "";
+    // scratchHereContainer.style.display = "";
+    // gridWrapper.style.display = "";
+    // footer.style.display = "";
+    // window.getComputedStyle(scratchHereContainer)
+});
 
 // FLOATING ON TOP AREA
 
@@ -60,16 +88,6 @@ let millionTextInterval = setInterval(() => {
     loopMillionLetters()
 }, 2000)
 
-let curtain = document.querySelector('.curtain');
-console.log(curtain);
-
-document.getElementById("replay-button").addEventListener("click", () => {
-    curtain.classList.add("on")
-    setTimeout(() => {
-        location.reload(); // Reloads the current page
-    }, 300);
-});
-
 // WIN PRICES AREA
 
 let winningHeadlineContainer = document.querySelector(".winning-headline");
@@ -113,20 +131,7 @@ keysContainerArray.forEach((key, i) => {
 
 // SCRATCH BOARD AREA
 
-    // SCRATCH TEXT
-
-let scratchHereContainer = document.querySelector(".scratch-here")
-
-scratchHereContainer.style.display = "none";
-
-
-document.fonts.ready.then(() => {
-    let scratchHereText = document.querySelector(".scratch-here__text");
-    let scratchArrowWrapper = document.querySelector(".scratch-here__arrow-wrapper")
-
-    scratchHereContainer.style.display = "";
-    // window.getComputedStyle(scratchHereContainer)
-});
+// SCRATCH TEXT
 
 let scratchLine = document.querySelector('.scratch-line');
 let scratchLineWidth = 20;
@@ -144,74 +149,9 @@ let scratchInterval = setInterval(() => {
 
 // clearInterval(scratchInterval)
 
-    // BACKGROUND
 
-function generateRandomNumbers() {
-    const result = [];
-    const count = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0 };
-    let maxCountReached = false;
 
-    // Weight array: Higher weight = higher probability
-    const weights = [3, 4, 4.5, 5, 5.5, 6]; // Lower weight for 1
-
-    function getWeightedRandom() {
-        const cumulativeWeights = [];
-        let sum = 0;
-
-        weights.forEach((weight, i) => {
-            sum += weight;
-            cumulativeWeights[i] = sum;
-        });
-
-        const random = Math.random() * sum;
-
-        for (let i = 0; i < cumulativeWeights.length; i++) {
-            if (random < cumulativeWeights[i]) {
-                return i + 1; // Return the number (1-6)
-            }
-        }
-    }
-
-    while (result.length < 9) {
-        const randomNumber = getWeightedRandom();
-
-        if (maxCountReached) {
-            // Allow numbers only if their count is less than 2
-            if (count[randomNumber] < 2) {
-                result.push(randomNumber);
-                count[randomNumber]++;
-            }
-        } else {
-            // Allow numbers if their count is less than 3
-            if (count[randomNumber] < 3) {
-                result.push(randomNumber);
-                count[randomNumber]++;
-
-                // Check if any number has reached 3 occurrences
-                if (count[randomNumber] === 3) {
-                    whoWon = randomNumber;
-                    maxCountReached = true;
-                }
-            }
-        }
-    }
-    return result;
-}
-
-let randomHeadNumbers = generateRandomNumbers();
-console.log(randomHeadNumbers);
-
-randomHeadNumbers.forEach(number => {
-    let odinDiv = document.createElement('div');
-    odinDiv.classList.add("odin", "face" + number)
-    let odinImg = document.createElement("img");
-
-    odinImg.src = `imgs/SVG/face${number}.svg`;
-    odinDiv.appendChild(odinImg)
-    gridBackground.appendChild(odinDiv)
-})
-
-    // SCRATCH SURFACE
+// SCRATCH SURFACE
 
 let activeDivIndex;
 let isDragging = false;
@@ -339,6 +279,73 @@ function createHoverEffect(pixelsWide, allDivs) {
 
 createHoverEffect(pixelsWide, allDivs)
 
+    // BACKGROUND
+
+function generateRandomNumbers() {
+    const result = [];
+    const count = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0 };
+    let maxCountReached = false;
+
+    // Weight array: Higher weight = higher probability
+    const weights = [3, 4, 4.5, 5, 5.5, 6]; // Lower weight for 1
+
+    function getWeightedRandom() {
+        const cumulativeWeights = [];
+        let sum = 0;
+
+        weights.forEach((weight, i) => {
+            sum += weight;
+            cumulativeWeights[i] = sum;
+        });
+
+        const random = Math.random() * sum;
+
+        for (let i = 0; i < cumulativeWeights.length; i++) {
+            if (random < cumulativeWeights[i]) {
+                return i + 1; // Return the number (1-6)
+            }
+        }
+    }
+
+    while (result.length < 9) {
+        const randomNumber = getWeightedRandom();
+
+        if (maxCountReached) {
+            // Allow numbers only if their count is less than 2
+            if (count[randomNumber] < 2) {
+                result.push(randomNumber);
+                count[randomNumber]++;
+            }
+        } else {
+            // Allow numbers if their count is less than 3
+            if (count[randomNumber] < 3) {
+                result.push(randomNumber);
+                count[randomNumber]++;
+
+                // Check if any number has reached 3 occurrences
+                if (count[randomNumber] === 3) {
+                    whoWon = randomNumber;
+                    maxCountReached = true;
+                }
+            }
+        }
+    }
+    return result;
+}
+
+let randomHeadNumbers = generateRandomNumbers();
+console.log(randomHeadNumbers);
+
+randomHeadNumbers.forEach(number => {
+    let odinDiv = document.createElement('div');
+    odinDiv.classList.add("odin", "face" + number)
+    let odinImg = document.createElement("img");
+
+    odinImg.src = `imgs/SVG/face${number}.svg`;
+    odinDiv.appendChild(odinImg)
+    gridBackground.appendChild(odinDiv)
+})
+
 // BOTTOM BUTTONS AREA
 
 const pixelButton = document.querySelector('.pixel-button');
@@ -406,3 +413,13 @@ resultButton.addEventListener('click', () => {
         }, index * 50); // 200ms interval
     });
 })
+
+let curtain = document.querySelector('.curtain');
+console.log(curtain);
+
+document.getElementById("replay-button").addEventListener("click", () => {
+    // curtain.classList.add("on")
+    setTimeout(() => {
+        location.reload(); // Reloads the current page
+    }, 300);
+});
