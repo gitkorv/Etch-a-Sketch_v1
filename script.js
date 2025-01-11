@@ -13,8 +13,16 @@ let odinSvg = document.querySelector('svg');
 let whoWon;
 let windowWidth = window.innerWidth;
 
+
+
 let curtain = document.querySelector('.curtain');
 console.log(curtain);
+
+let burst = document.querySelector(".burst")
+let burstAnimDur = parseInt(getComputedStyle(burst).animationDuration);
+let burstText = document.querySelector(".burst-text");
+let burstSvg = document.querySelectorAll(".burst svg");
+console.log(burstSvg);
 
 let footer = document.querySelector(".bottom-buttons")
 console.log(footer);
@@ -22,9 +30,13 @@ console.log(footer);
 // GENERAL
 
 // body.classList.add("hidden");
+
+burstSvg.display = "none"
+
 card.style.display = "none";
 curtain.style.transition = "none"
 curtain.classList.add("on")
+burst.style.display = "none"
 // scratchHereContainer.style.display = "none";
 // gridWrapper.style.display = "none";
 // footer.style.display = "none";
@@ -36,8 +48,15 @@ curtain.classList.add("on")
 setTimeout(() => {
     curtain.style.transition = ""
     card.style.display = "";
-
+    burst.style.display = "";
     curtain.classList.remove("on")
+    burstSvg.display = "";
+
+    // console.log(parseInt(burstAnimDur));
+
+    setInterval(() => {
+        burstText.textContent = burstText.textContent === "Big!" ? "Win!!" : "Big!";
+    }, burstAnimDur * 1000);
 
 }, 150);
 
@@ -57,20 +76,8 @@ setTimeout(() => {
 
 // FLOATING ON TOP AREA
 
-let burst = document.querySelector(".burst")
-let burstAnimDur = parseInt(getComputedStyle(burst).animationDuration);
-let burstText = document.querySelector(".burst-text");
-// console.log(parseInt(burstAnimDur));
-
-setInterval(() => {
-    burstText.textContent = burstText.textContent === "Big!" ? "Win!!" : "Big!";
-}, burstAnimDur * 1000);
 
 
-burst.addEventListener('animationend', (e) => {
-    console.log(e);
-})
-console.log(burst);
 
 // MILLION AREA
 
