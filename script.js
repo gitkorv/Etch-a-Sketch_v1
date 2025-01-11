@@ -1,4 +1,5 @@
 const body = document.body;
+let section = document.section;
 console.log(body);
 let card = document.querySelector(".card")
 console.log(card);
@@ -18,7 +19,7 @@ console.log(footer);
 // GENERAL
 
 // body.classList.add("hidden");
-body.style.display = "none";
+card.style.display = "none";
 // scratchHereContainer.style.display = "none";
 // gridWrapper.style.display = "none";
 // footer.style.display = "none";
@@ -26,7 +27,7 @@ body.style.display = "none";
 document.fonts.ready.then(() => {
     // body.classList.remove("hidden");
 
-    body.style.display = "";
+    card.style.display = "";
     // scratchHereContainer.style.display = "";
     // gridWrapper.style.display = "";
     // footer.style.display = "";
