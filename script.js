@@ -121,7 +121,8 @@ document.fonts.ready.then(() => {
     let scratchArrowWrapper = document.querySelector(".scratch-here__arrow-wrapper")
     console.log(getComputedStyle(scratchArrowWrapper).height);
 
-    scratchHereContainer.style.display = "flex";
+    // scratchHereContainer.style.display = "flex";
+    window.getComputedStyle(scratchHereContainer)
 });
 
 let scratchLine = document.querySelector('.scratch-line');

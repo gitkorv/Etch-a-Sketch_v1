@@ -396,7 +396,7 @@ h2:nth-of-type(4) {
 
 .scratch-here {
     position: relative;
-    /* display: flex; */
+    display: flex;
     flex-direction: column;
     height: 100%;
     width: 40px;
