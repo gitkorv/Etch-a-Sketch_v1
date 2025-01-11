@@ -17,16 +17,16 @@ console.log(footer);
 
 // GENERAL
 
-body.classList.add("hidden");
-// body.style.display = "none";
+// body.classList.add("hidden");
+body.style.display = "none";
 // scratchHereContainer.style.display = "none";
 // gridWrapper.style.display = "none";
 // footer.style.display = "none";
 
 document.fonts.ready.then(() => {
-    body.classList.remove("hidden");
+    // body.classList.remove("hidden");
 
-    // body.style.display = "";
+    body.style.display = "";
     // scratchHereContainer.style.display = "";
     // gridWrapper.style.display = "";
     // footer.style.display = "";
@@ -418,7 +418,7 @@ let curtain = document.querySelector('.curtain');
 console.log(curtain);
 
 document.getElementById("replay-button").addEventListener("click", () => {
-    // curtain.classList.add("on")
+    curtain.classList.add("on")
     setTimeout(() => {
         location.reload(); // Reloads the current page
     }, 300);
