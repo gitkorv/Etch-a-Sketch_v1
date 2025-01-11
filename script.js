@@ -115,8 +115,6 @@ keysContainerArray.forEach((key, i) => {
 
     // SCRATCH TEXT
 
-
-
 document.fonts.ready.then(() => {
     let scratchHereContainer = document.querySelector(".scratch-here")
     let scratchHereText = document.querySelector(".scratch-here__text");

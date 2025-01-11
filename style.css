@@ -413,7 +413,7 @@ h2:nth-of-type(4) {
     writing-mode: vertical-lr;
     font-size: 2.2rem;
     line-height: 1.5rem;
-    background-color: black;
+    /* background-color: black; */
 }
 
 .scratch-here__arrow-wrapper {
@@ -424,7 +424,7 @@ h2:nth-of-type(4) {
     z-index: 100;
     padding-left: 8px;
     padding-top: 4px;
-    background-color: aqua;
+    /* background-color: aqua; */
 }
 
 .scratch-line {
