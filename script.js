@@ -5,6 +5,137 @@ let odinSvg = document.querySelector('svg');
 let whoWon;
 let windowWidth = window.innerWidth;
 
+// FLOATING ON TOP AREA
+
+let burst = document.querySelector(".burst")
+let burstAnimDur = parseInt(getComputedStyle(burst).animationDuration);
+let burstText = document.querySelector(".burst-text");
+// console.log(parseInt(burstAnimDur));
+
+setInterval(() => {
+    burstText.textContent = burstText.textContent === "Big!" ? "Win!!" : "Big!";
+}, burstAnimDur * 1000);
+
+
+burst.addEventListener('animationend', (e) => {
+    console.log(e);
+})
+console.log(burst);
+
+// MILLION AREA
+
+let millionHeadsContainer = document.querySelector(".million-head-container");
+let millionHeadDivArray = Array.from(millionHeadsContainer.children)
+
+for (let i = 0; i < 3; i++) {
+    let millionHeadImg = document.createElement("img");
+    millionHeadImg.src = `imgs/SVG/face1.svg`;
+    millionHeadDivArray[i].appendChild(millionHeadImg);
+    // millionHeadsContainer.appendChild(millionHeadImg);    
+}
+
+let millionText = document.querySelector(".million");
+let millionTextArray = [...millionText.innerHTML];
+millionText.textContent = '';
+let millionSpans = [];
+millionTextArray.forEach(letter => {
+    let millionLetterSpan = document.createElement('span');
+    millionLetterSpan.textContent = letter;
+    millionText.appendChild(millionLetterSpan)
+
+})
+
+let newMillionSpans = [...millionText.children];
+
+function loopMillionLetters() {
+    let gapTime = 50;
+    newMillionSpans.forEach((letter, i) => {
+        setTimeout(() => {
+            letter.classList.toggle("blink");
+        }, i * gapTime);
+    })
+}
+
+let millionTextInterval = setInterval(() => {
+    loopMillionLetters()
+}, 2000)
+
+let curtain = document.querySelector('.curtain');
+console.log(curtain);
+
+document.getElementById("replay-button").addEventListener("click", () => {
+    curtain.classList.add("on")
+    setTimeout(() => {
+        location.reload(); // Reloads the current page
+    }, 300);
+});
+
+// WIN PRICES AREA
+
+let winningHeadlineContainer = document.querySelector(".winning-headline");
+let orgWinningHeadlineContent = winningHeadlineContainer.innerHTML;
+
+let winningHeadOddsSpan = document.createElement('span');
+winningHeadOddsSpan.classList.add("win-odds-text")
+winningHeadOddsSpan.innerHTML = " (and odds)";
+
+let longerWinningHeadContainer = winningHeadlineContainer.appendChild(winningHeadOddsSpan);
+
+function adjustElementsToWindowWidth() {
+    windowWidth = window.innerWidth;
+    if (windowWidth > 390) {
+        winningHeadlineContainer.insertAdjacentElement('beforeend', winningHeadOddsSpan);
+    } else {
+        winningHeadlineContainer.innerHTML = orgWinningHeadlineContent;
+    }
+}
+
+window.addEventListener('resize', () => {
+    adjustElementsToWindowWidth()
+})
+
+adjustElementsToWindowWidth()
+
+let keysContainerArray = Array.from(document.querySelectorAll(".keys"));
+
+keysContainerArray.forEach((key, i) => {
+    let imgIndex = i + 1;
+    let threeImgs = Array.from(key.children)
+
+    threeImgs.forEach(container => {
+        let parentClassName = container.parentElement.classList;
+        let element = container.outerHTML;
+        let odinHeadSvg = document.createElement('img')
+        odinHeadSvg.src = `imgs/SVG/face${imgIndex}.svg`;
+        container.appendChild(odinHeadSvg)
+    })
+})
+
+// SCRATCH BOARD AREA
+
+    // SCRATCH TEXT
+
+let scratchHereText = document.querySelector(".scratch-here__text")
+console.log(getComputedStyle(scratchHereText).height);
+
+let scratchLine = document.querySelector('.scratch-line');
+let scratchLineWidth = 20;
+let direction = -1;
+
+let scratchInterval = setInterval(() => {
+    scratchLineWidth += direction;
+
+    if (scratchLineWidth <= 5 || scratchLineWidth >= 20) {
+        direction *= -1;
+    }
+    scratchLine.style.width = `${scratchLineWidth}px`;
+    // scratchHandWrapper.style.left = scratchLineWidth + "px"
+}, 70)
+
+// clearInterval(scratchInterval)
+
+    // BACKGROUND
+
 function generateRandomNumbers() {
     const result = [];
     const count = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0 };
@@ -57,7 +188,6 @@ function generateRandomNumbers() {
     return result;
 }
 
-
 let randomHeadNumbers = generateRandomNumbers();
 console.log(randomHeadNumbers);
 
@@ -71,31 +201,7 @@ randomHeadNumbers.forEach(number => {
     gridBackground.appendChild(odinDiv)
 })
 
-let millionHeadsContainer = document.querySelector(".million-head-container");
-let millionHeadDivArray = Array.from(millionHeadsContainer.children)
-
-for (let i = 0; i < 3; i++) {
-    let millionHeadImg = document.createElement("img");
-    millionHeadImg.src = `imgs/SVG/face1.svg`;
-    millionHeadDivArray[i].appendChild(millionHeadImg);
-    // millionHeadsContainer.appendChild(millionHeadImg);    
-}
-
-let keysContainerArray = Array.from(document.querySelectorAll(".keys"));
-// console.log(keysContainerArray);
-
-keysContainerArray.forEach((key, i) => {
-    let imgIndex = i + 1;
-    let threeImgs = Array.from(key.children)
-
-    threeImgs.forEach(container => {
-        let parentClassName = container.parentElement.classList;
-        let element = container.outerHTML;
-        let testSvg = document.createElement('img')
-        testSvg.src = `imgs/SVG/face${imgIndex}.svg`;
-        container.appendChild(testSvg)
-    })
-})
+    // SCRATCH SURFACE
 
 let activeDivIndex;
 let isDragging = false;
@@ -125,6 +231,105 @@ createPixelSquare(pixelsWide, square)
 
 let allDivs = Array.from(document.querySelectorAll(".grid__div"));
 
+function addHoverOnDiv(target, pixelsWide) {
+    let targetDiv = target;
+    let divIndex = allDivs.indexOf(targetDiv);
+    square = pixelsWide * pixelsWide;
+
+    let centerErase = 0.4;
+    let surroundingErase = 0.2;
+
+    let currentOpacity = Number(getComputedStyle(targetDiv).opacity);
+    let newOpacity = currentOpacity - centerErase;
+    allDivs[divIndex].style.opacity = newOpacity > 0 ? newOpacity : 0;
+
+    let surroundingDivs = []
+
+    if (divIndex - pixelsWide >= 0) surroundingDivs.push(allDivs[divIndex - pixelsWide])
+    if (divIndex + pixelsWide < square) surroundingDivs.push(allDivs[divIndex + pixelsWide])
+
+    if (divIndex % pixelsWide === 0) {
+        surroundingDivs.push(allDivs[divIndex + 1]);
+    } else if ((divIndex + 1) % pixelsWide === 0) {
+        surroundingDivs.push(allDivs[divIndex - 1]);
+    } else {
+        surroundingDivs.push(allDivs[divIndex + 1]);
+        surroundingDivs.push(allDivs[divIndex - 1]);
+    }
+    surroundingDivs.forEach(div => {
+        let edgeOpacity = Number(getComputedStyle(div).opacity);
+        let newEdgeOpacity = edgeOpacity - surroundingErase;
+        div.style.opacity = newEdgeOpacity > 0 ? newEdgeOpacity : 0;
+    })
+}
+
+function throttle(func, limit) {
+    let lastFunc;
+    let lastRan;
+
+    return function (...args) {
+        const context = this;
+        if (!lastRan) {
+            func.apply(context, args);
+            lastRan = Date.now();
+        } else {
+            clearTimeout(lastFunc);
+            lastFunc = setTimeout(function () {
+                if (Date.now() - lastRan >= limit) {
+                    func.apply(context, args);
+                    lastRan = Date.now();
+                }
+            }, limit - (Date.now() - lastRan));
+        }
+    };
+}
+
+// Throttle usage
+const throttledMove = throttle((target, pixelsWide) => {
+    let targetDiv = target;
+
+    if (isDragging && allDivs.indexOf(targetDiv) !== activeDivIndex) {
+        activeDivIndex = allDivs.indexOf(targetDiv);
+        addHoverOnDiv(target, pixelsWide);
+    }
+}, 100);
+
+
+function createHoverEffect(pixelsWide, allDivs) {
+    allDivs.forEach(div => {
+        div.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            let target = e.target;
+            activeDivIndex = allDivs.indexOf(target);
+            addHoverOnDiv(target, pixelsWide)
+        });
+        div.addEventListener('mouseup', () => (isDragging = false));
+        div.addEventListener('mousemove', (e) => {
+            let target = e.target;
+            throttledMove(target, pixelsWide);
+        })
+        div.addEventListener('touchstart', (e) => {
+            isDragging = true;
+
+            let target = e.target;
+            activeDivIndex = allDivs.indexOf(target);
+            addHoverOnDiv(target, pixelsWide);
+        });
+
+        div.addEventListener('touchmove', (e) => {
+            e.preventDefault(); // Prevent scrolling
+            isDragging = true;
+            const touch = e.touches[0];
+            const target = document.elementFromPoint(touch.clientX, touch.clientY);
+            throttledMove(target, pixelsWide)
+        });
+        div.addEventListener('touchend', () => (isDragging = false));
+    })
+}
+
+createHoverEffect(pixelsWide, allDivs)
+
+// BOTTOM BUTTONS AREA
 
 const pixelButton = document.querySelector('.pixel-button');
 
@@ -191,200 +396,3 @@ resultButton.addEventListener('click', () => {
         }, index * 50); // 200ms interval
     });
 })
-
-function addHoverOnDiv(target, pixelsWide) {
-    let targetDiv = target;
-    let divIndex = allDivs.indexOf(targetDiv);
-    square = pixelsWide * pixelsWide;
-
-    let centerErase = 0.4;
-    let surroundingErase = 0.2;
-
-    let currentOpacity = Number(getComputedStyle(targetDiv).opacity);
-    let newOpacity = currentOpacity - centerErase;
-    allDivs[divIndex].style.opacity = newOpacity > 0 ? newOpacity : 0;
-
-    let surroundingDivs = []
-
-    if (divIndex - pixelsWide >= 0) surroundingDivs.push(allDivs[divIndex - pixelsWide])
-    if (divIndex + pixelsWide < square) surroundingDivs.push(allDivs[divIndex + pixelsWide])
-
-    if (divIndex % pixelsWide === 0) {
-        surroundingDivs.push(allDivs[divIndex + 1]);
-    } else if ((divIndex + 1) % pixelsWide === 0) {
-        surroundingDivs.push(allDivs[divIndex - 1]);
-    } else {
-        surroundingDivs.push(allDivs[divIndex + 1]);
-        surroundingDivs.push(allDivs[divIndex - 1]);
-    }
-    surroundingDivs.forEach(div => {
-        let edgeOpacity = Number(getComputedStyle(div).opacity);
-        let newEdgeOpacity = edgeOpacity - surroundingErase;
-        div.style.opacity = newEdgeOpacity > 0 ? newEdgeOpacity : 0;
-    })
-
-}
-
-function throttle(func, limit) {
-    let lastFunc;
-    let lastRan;
-
-    return function (...args) {
-        const context = this;
-        if (!lastRan) {
-            func.apply(context, args); // Run immediately on the first event
-            lastRan = Date.now();
-        } else {
-            clearTimeout(lastFunc); // Clear the last timeout if it exists
-            lastFunc = setTimeout(function () {
-                if (Date.now() - lastRan >= limit) {
-                    func.apply(context, args);
-                    lastRan = Date.now();
-                }
-            }, limit - (Date.now() - lastRan));
-        }
-    };
-}
-
-// Throttle usage
-const throttledMove = throttle((target, pixelsWide) => {
-    let targetDiv = target;
-
-    if (isDragging && allDivs.indexOf(targetDiv) !== activeDivIndex) {
-        activeDivIndex = allDivs.indexOf(targetDiv);
-        addHoverOnDiv(target, pixelsWide);
-    }
-}, 100);
-
-
-function createHoverEffect(pixelsWide, allDivs) {
-    allDivs.forEach(div => {
-        div.addEventListener('mousedown', (e) => {
-            isDragging = true;
-            let target = e.target;
-            activeDivIndex = allDivs.indexOf(target);
-            addHoverOnDiv(target, pixelsWide)
-        });
-        div.addEventListener('mouseup', () => (isDragging = false));
-        div.addEventListener('mousemove', (e) => {
-            let target = e.target;
-            throttledMove(target, pixelsWide);
-        })
-        div.addEventListener('touchstart', (e) => {
-            isDragging = true;
-
-            let target = e.target;
-            activeDivIndex = allDivs.indexOf(target);
-            addHoverOnDiv(target, pixelsWide);
-        });
-
-        div.addEventListener('touchmove', (e) => {
-            e.preventDefault(); // Prevent scrolling
-            isDragging = true;
-            const touch = e.touches[0];
-            const target = document.elementFromPoint(touch.clientX, touch.clientY);
-            throttledMove(target, pixelsWide)
-        });
-        div.addEventListener('touchend', () => (isDragging = false));
-    })
-}
-
-createHoverEffect(pixelsWide, allDivs)
-
-let winningHeadlineContainer = document.querySelector(".winning-headline");
-let orgWinningHeadlineContent = winningHeadlineContainer.innerHTML;
-
-let winningHeadOddsSpan = document.createElement('span');
-winningHeadOddsSpan.classList.add("win-odds-text")
-winningHeadOddsSpan.innerHTML = " (and odds)";
-
-let longerWinningHeadContainer = winningHeadlineContainer.appendChild(winningHeadOddsSpan);
-
-function adjustElementsToWindowWidth() {
-    windowWidth = window.innerWidth;
-    if (windowWidth > 390) {
-        winningHeadlineContainer.insertAdjacentElement('beforeend', winningHeadOddsSpan);
-    } else {
-        winningHeadlineContainer.innerHTML = orgWinningHeadlineContent;
-    }
-}
-
-window.addEventListener('resize', () => {
-    adjustElementsToWindowWidth()
-})
-
-adjustElementsToWindowWidth()
-
-let scratchLine = document.querySelector('.scratch-line');
-let scratchLineWidth = 20;
-let direction = -1;
-
-// scratchLine.style.width = "40px"
-
-let scratchInterval = setInterval(() => {
-    scratchLineWidth += direction;
-
-    if (scratchLineWidth <= 5 || scratchLineWidth >= 20) {
-        direction *= -1;
-    }
-    scratchLine.style.width = `${scratchLineWidth}px`;
-    // scratchHandWrapper.style.left = scratchLineWidth + "px"
-}, 70)
-
-// clearInterval(scratchInterval)
-
-let millionText = document.querySelector(".million");
-let millionTextArray = [...millionText.innerHTML];
-millionText.textContent = '';
-let millionSpans = [];
-millionTextArray.forEach(letter => {
-    let millionLetterSpan = document.createElement('span');
-    millionLetterSpan.textContent = letter;
-    millionText.appendChild(millionLetterSpan)
-
-})
-
-let newMillionSpans = [...millionText.children];
-
-function loopMillionLetters() {
-    let gapTime = 50;
-    newMillionSpans.forEach((letter, i) => {
-        setTimeout(() => {
-            letter.classList.toggle("blink");
-        }, i * gapTime);
-
-    })
-
-}
-
-
-let millionTextInterval = setInterval(() => {
-    loopMillionLetters()
-}, 2000)
-
-let curtain = document.querySelector('.curtain');
-console.log(curtain);
-
-document.getElementById("replay-button").addEventListener("click", () => {
-    curtain.classList.add("on")
-    setTimeout(() => {
-        location.reload(true); // Reloads the current page
-
-    }, 300);
-
-});
-
-let burst = document.querySelector(".burst")
-let burstAnimDur = parseInt(getComputedStyle(burst).animationDuration);
-let burstText = document.querySelector(".burst-text");
-// console.log(parseInt(burstAnimDur));
-
-setInterval(() => {
-    burstText.textContent = burstText.textContent === "Big!" ? "Win!!" : "Big!";
-}, burstAnimDur * 1000);
-
-
-burst.addEventListener('animationend', (e) => {
-    console.log(e);
-})
-console.log(burst);

@@ -393,7 +393,7 @@ h2:nth-of-type(4) {
     position: relative;
     display: flex;
     flex-direction: column;
-    height: fit-content;
+    height: 100%;
     width: 40px;
     /* background-color: aqua; */
 }
@@ -401,16 +401,21 @@ h2:nth-of-type(4) {
 .scratch-here__text {
     color: wheat;
     position: relative;
+    /* height: auto; */
+    white-space: nowrap;
     /* margin-right: 16px; */
     writing-mode: vertical-lr;
     font-size: 2.2rem;
     line-height: 1.5rem;
+    /* text-wrap: none; */
+    /* width: 20px; */
     /* background-color: black; */
 }
 
 .scratch-here__arrow-wrapper {
     display: flex;
-    height: 30px;
+
+    height: 100%;
     width: fit-content;
     z-index: 100;
     padding-left: 8px;
@@ -419,7 +424,7 @@ h2:nth-of-type(4) {
 }
 
 .scratch-line {
-    height: calc(50% + 1px);
+    height: 20px;
     width: 20px;
     /* background-color: pink; */
     border-left: 1px solid white;
@@ -427,7 +432,8 @@ h2:nth-of-type(4) {
 }
 
 .scratch-hand {
-    place-content: center;
+    margin-top: 10px;
+    /* place-content: center; */
     height: 100%;
     width: 40px;
     /* background-color: blue; */
