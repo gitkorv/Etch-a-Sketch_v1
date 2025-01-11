@@ -115,13 +115,16 @@ keysContainerArray.forEach((key, i) => {
 
     // SCRATCH TEXT
 
+let scratchHereContainer = document.querySelector(".scratch-here")
+
+scratchHereContainer.style.display = "none";
+
+
 document.fonts.ready.then(() => {
-    let scratchHereContainer = document.querySelector(".scratch-here")
     let scratchHereText = document.querySelector(".scratch-here__text");
     let scratchArrowWrapper = document.querySelector(".scratch-here__arrow-wrapper")
-    console.log(getComputedStyle(scratchArrowWrapper).height);
 
-    scratchHereContainer.style.display = "flex";
+    scratchHereContainer.style.display = "";
     // window.getComputedStyle(scratchHereContainer)
 });
 
