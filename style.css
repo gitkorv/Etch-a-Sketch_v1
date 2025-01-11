@@ -38,7 +38,9 @@ body {
     font-weight: 700;
     font-style: normal;
     perspective: 1000px;
-
+}
+body.loading {
+    visibility: hidden;
 }
 
 img, picture, video, canvas {
@@ -62,16 +64,17 @@ ul, ol {
 .curtain {
     position: absolute;
     height: 120dvh;
-    width: 100%;
+    width: 0;
     background-color: var(--darkBlue);
+    /* background-color: pink; */
     z-index: 2000;
     opacity: 0;
     pointer-events: none;
 }
 
 .curtain.on {
-    transition: opacity .2s ease-in;
-
+    transition: width .1s ease-in;
+    width: 100%;
     opacity: 1;
 }
 
