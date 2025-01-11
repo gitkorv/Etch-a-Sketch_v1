@@ -63,15 +63,6 @@ setTimeout(() => {
 // document.fonts.ready.then(() => {
 //     // body.classList.remove("hidden");
 
-    
-
-    
-
-
-//     // scratchHereContainer.style.display = "";
-//     // gridWrapper.style.display = "";
-//     // footer.style.display = "";
-//     // window.getComputedStyle(scratchHereContainer)
 // });
 
 // FLOATING ON TOP AREA
